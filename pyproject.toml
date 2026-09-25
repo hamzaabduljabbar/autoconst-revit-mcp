@@ -1,7 +1,7 @@
 [project]
-name = "mcp-server-for-revit"
+name = "autoconst-revit-mcp"
 version = "0.1.0"
-description = "MCP server for Revit"
+description = "AutoConst Revit MCP - AI tools for Revit BIM, QS and estimating workflows"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

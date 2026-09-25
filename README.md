@@ -1,4 +1,6 @@
-# Revit MCP Server
+# AutoConst Revit MCP
+
+> Maintained by [Hamza Jabbar](https://hamzajabbar.online). Based on [mcp-server-for-revit-python](https://github.com/mcp-servers-for-revit/mcp-server-for-revit-python) by Juan Rodriguez (MIT) — see [NOTICE](NOTICE).
 
 MCP server for Autodesk Revit 2024/2025/2026 via pyRevit — 45 tools for building design, editing, analysis, MEP, interop, and documentation.
 

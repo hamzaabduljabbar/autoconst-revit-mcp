@@ -10,7 +10,7 @@ from typing import Optional, Dict, Any, Union
 # Create a generic MCP server for interacting with Revit
 # Use stateless_http=True and json_response=True for better compatibility
 mcp = FastMCP(
-    "Revit MCP Server", 
+    "AutoConst Revit MCP", 
     host="127.0.0.1", 
     port=8000,
     stateless_http=True,

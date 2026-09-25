@@ -1,0 +1,7 @@
+AutoConst Revit MCP
+Copyright (c) 2026 Hamza Jabbar
+
+This product is derived from mcp-server-for-revit-python
+(https://github.com/mcp-servers-for-revit/mcp-server-for-revit-python),
+Copyright (c) 2025 Juan Rodriguez, used under the MIT License (see LICENSE),
+and includes additions from the Demolinator/revit-mcp-server fork.
