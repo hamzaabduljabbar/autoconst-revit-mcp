@@ -1,8 +1,8 @@
 # AutoConst Revit MCP
 
-> Maintained by [Hamza Jabbar](https://hamzajabbar.online). Based on [mcp-server-for-revit-python](https://github.com/mcp-servers-for-revit/mcp-server-for-revit-python) by Juan Rodriguez (MIT) — see [NOTICE](NOTICE).
+> Maintained by [Hamza Jabbar](https://hamzajabbar.online). Based on [mcp-server-for-revit-python](https://github.com/mcp-servers-for-revit/mcp-server-for-revit-python) by Juan Rodriguez and the [Demolinator/revit-mcp-server](https://github.com/Demolinator/revit-mcp-server) fork by Talal Ahmed (MIT) — see [NOTICE](NOTICE).
 
-MCP server for Autodesk Revit 2024/2025/2026 via pyRevit — 45 tools for building design, editing, analysis, MEP, interop, and documentation.
+MCP server for Autodesk Revit 2024/2025/2026/2027 via pyRevit — 48 tools for building design, editing, analysis, clash detection, MEP, interop, documentation, and model persistence.
 
 Works with any MCP client: Claude Desktop, Claude Code, Cursor, Windsurf, Copilot, or any other MCP-compatible application.
 
@@ -19,7 +19,7 @@ The MCP server runs on your machine and communicates with Revit through pyRevit'
 | Requirement | Details |
 |-------------|---------|
 | **Windows 10/11** | Revit is Windows-only |
-| **Autodesk Revit** | 2024, 2025, or 2026 |
+| **Autodesk Revit** | 2024, 2025, 2026, or 2027 |
 | **pyRevit** | Installed and loaded in Revit |
 | **uv** | Python package manager ([install](https://docs.astral.sh/uv/getting-started/installation/)) |
 | **A project open in Revit** | Tools require an active document |
@@ -41,7 +41,7 @@ To verify: open a browser and go to `http://localhost:48884/` — you should see
 
 ## Quick Start
 
-### Step 1: Clone and install
+### 1. Get the code
 
 ```bash
 git clone https://github.com/Demolinator/revit-mcp-server.git
@@ -49,104 +49,76 @@ cd revit-mcp-server
 uv sync
 ```
 
-### Step 2: Install the pyRevit extension
+### 2. Load the extension into pyRevit
 
-The `revit_mcp/` folder and `startup.py` need to run inside Revit via pyRevit.
+`startup.py` and `revit_mcp/` run **inside Revit**, so pyRevit has to load this folder as an extension.
 
-**Option A — Install from pyRevit (recommended):**
+> Don't install "MCP Server for Revit Python" from the pyRevit Extensions manager. That entry installs the original upstream project, which lacks most of the 48 routes this server calls.
 
-1. In Revit, go to pyRevit tab > Extensions
-2. Find "MCP Server for Revit Python" > Install
-3. Wait for pyRevit to reload
+1. Pick a folder for your pyRevit extensions, e.g. `C:\pyRevitExtensions`.
+2. Link this repo into it under a name ending in `.extension` (a junction keeps it updated whenever you `git pull`):
+   ```powershell
+   New-Item -ItemType Junction -Path C:\pyRevitExtensions\revit-mcp.extension -Target C:\path\to\revit-mcp-server
+   ```
+   (Copying the folder there with that name works too; you'll just need to copy it again after updates.)
+3. In Revit: **pyRevit tab → Settings → Custom Extension Directories** → add `C:\pyRevitExtensions`.
+4. In the same Settings window, under **Routes**, turn on **Routes Server** (port `48884`).
+5. **Save Settings and Reload.**
 
-**Option B — Manual install:**
+### 3. Check Revit is answering
 
-1. Copy the entire repo folder to `%APPDATA%\pyRevit\Extensions\`
-2. Rename the folder to `mcp-server-for-revit-python.extension`
-3. In Revit, go to pyRevit tab > Settings > Custom Extensions
-4. Add the path to the `.extension` folder
-5. Reload pyRevit (or restart Revit)
+With a project open, browse to <http://localhost:48884/revit_mcp/status/>. A working setup answers with `"status": "active"` and your project's title. A 404 means the extension isn't loaded; "can't reach this page" means Routes is off or Revit is closed.
 
-### Step 3: Activate pyRevit Routes
+### 4. Connect your AI client
 
-1. In Revit, go to pyRevit tab > Settings
-2. Navigate to Routes > activate **Routes Server**
-3. pyRevit will start listening on `http://localhost:48884/`
-
-### Step 4: Verify connection
-
-Open a browser and go to:
-
-```
-http://localhost:48884/revit_mcp/status/
-```
-
-You should see:
-
-```json
-{
-  "status": "active",
-  "health": "healthy",
-  "revit_available": true,
-  "document_title": "your_project_name",
-  "api_name": "revit_mcp"
-}
-```
-
-### Step 5: Start the MCP server
-
-```bash
-uv run main.py
-```
-
-That's it. Your AI client can now connect.
-
-## Connecting Your AI Client
-
-### Claude Desktop / Claude Code
-
-Add to your MCP config:
+Most desktop clients start the server themselves over stdio. Add this to the client's MCP configuration (for Claude Desktop: `claude_desktop_config.json`):
 
 ```json
 {
   "mcpServers": {
     "revit": {
       "command": "uv",
-      "args": ["run", "main.py"],
-      "cwd": "/path/to/revit-mcp-server"
+      "args": ["run", "--directory", "C:\path\to\revit-mcp-server", "main.py"]
     }
   }
 }
 ```
 
-### Cursor / Windsurf / Other MCP Clients
+For Claude Code: `claude mcp add revit -- uv run --directory C:\path\to\revit-mcp-server main.py`
 
-Use HTTP transport:
-
-```bash
-uv run main.py --streamable-http
-```
-
-Then configure your client to connect to `http://localhost:8000/mcp`.
-
-### Transport Modes
-
-| Flag | Transport | Endpoints | Use Case |
-|------|-----------|-----------|----------|
-| *(none)* | stdio | stdin/stdout | Claude Desktop / Claude Code |
-| `--sse` | SSE | `/sse`, `/messages/` | Legacy clients |
-| `--streamable-http` | HTTP | `/mcp` | HTTP-based clients |
-| `--combined` | Both | All above | Maximum compatibility |
-
-### Testing with MCP Inspector
+Clients that connect over HTTP instead (some Cursor/Windsurf setups, remote clients) need the server started separately:
 
 ```bash
-mcp dev main.py
+uv run main.py --http        # then point the client at http://127.0.0.1:8000/mcp
 ```
 
-Then open `http://127.0.0.1:6274` in your browser.
+| Start with | Protocol | Served at |
+|---|---|---|
+| `uv run main.py` | stdio (default) | the client's stdin/stdout |
+| `--http` (alias `--streamable-http`) | Streamable HTTP | `/mcp` |
+| `--sse` | Server-Sent Events (older clients) | `/sse` and `/messages/` |
+| `--combined` | Streamable HTTP + SSE together | all of the above |
 
-## Supported Tools (45)
+### Configuration
+
+Set these environment variables (or the `env` block of your MCP client config) to change the defaults:
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `REVIT_HOST` | `localhost` | Machine running Revit + pyRevit Routes |
+| `REVIT_PORT` | `48884` | pyRevit Routes port |
+| `MCP_HOST` | `127.0.0.1` | Bind address for `--http` / `--sse` / `--combined` |
+| `MCP_PORT` | `8000` | Port for `--http` / `--sse` / `--combined` |
+
+Keep `MCP_HOST` on `127.0.0.1` unless you understand the risks in [SECURITY.md](SECURITY.md).
+
+### Try tools without an AI client
+
+```bash
+uv run mcp dev main.py       # opens the MCP Inspector at http://127.0.0.1:6274
+```
+
+## Supported Tools (48)
 
 ### Create (15)
 
@@ -185,7 +157,7 @@ Then open `http://127.0.0.1:6274` in your browser.
 | `list_category_parameters` | List parameters for a category |
 | `get_element_properties` | Get all parameters and properties of an element |
 
-### Modify (8)
+### Modify (9)
 
 | Tool | Description |
 |------|-------------|
@@ -199,28 +171,31 @@ Then open `http://127.0.0.1:6274` in your browser.
 | `transform_elements` | Move, copy, rotate, or mirror elements |
 | `set_active_view` | Switch the active view in Revit |
 
-### Analyze (4)
+### Analyze (5)
 
 | Tool | Description |
 |------|-------------|
 | `ai_element_filter` | Filter elements by category and parameters |
 | `export_room_data` | Export room areas, volumes, boundaries |
 | `get_material_quantities` | Material takeoff data |
+| `check_clashes` | Detect hard clashes (interferences) between disciplines, e.g. structure vs MEP |
 | `analyze_model_statistics` | Element counts and model stats |
 
-### Document (3)
+### Document (2)
 
 | Tool | Description |
 |------|-------------|
 | `create_dimensions` | Create dimension annotations |
 | `export_document` | Export views to PDF or image |
 
-### Interop (2)
+### Interop & Persistence (4)
 
 | Tool | Description |
 |------|-------------|
 | `export_ifc` | Export model to IFC format (IFC2x3/IFC4) |
-| `link_file` | Link or import DWG, DXF, DGN, or RVT files |
+| `link_file` | Link or import DWG, DXF, DGN, SAT, SKP, 3DM, or RVT files |
+| `load_family` | Load a Revit family (`.rfa`) from disk so its types can be placed |
+| `save_document` | Save / Save-As the model to disk (persistence across sessions) |
 
 ### Advanced (1)
 
@@ -239,12 +214,14 @@ Two runtimes communicate over HTTP:
 
 ## Multi-Version Revit Support
 
-This server supports Revit 2024, 2025, and 2026 through centralized helper functions that handle the ElementId API differences across versions:
+This server supports Revit 2024, 2025, 2026, and 2027 through centralized helper functions that handle the ElementId API differences across versions:
 
 - `get_element_id_value()` — Extracts integer IDs using `.Value` (2024+) with `.IntegerValue` fallback
 - `make_element_id()` — Creates ElementIds using `System.Int64` (2024+) with `int` fallback
 
 No configuration needed — version detection is automatic via try/except at runtime.
+
+> **Revit 2027 note:** Revit 2027 runs on **.NET 10** (vs .NET 8 in 2025/2026). This MCP server is pyRevit-based, so .NET compatibility is handled by pyRevit itself — ensure you run a **pyRevit build with Revit 2027 support**. None of the 48 tools use APIs removed in 2027 (AXM/FormIt import, `Mechanical.Zone` members, legacy rebar creation, or the dropped `EnergyDataSettings` properties).
 
 ## Unit Handling
 
@@ -265,11 +242,15 @@ Adding a new tool requires 2 files + 2 registration lines:
 3. **Register routes** in `startup.py`
 4. **Register tools** in `tools/__init__.py`
 
-See `LLM.txt` for full context that helps AI assistants understand the codebase.
+See [CONTRIBUTING.md](CONTRIBUTING.md#adding-a-new-tool) for a complete worked example, and `LLM.txt` for context that helps AI assistants understand the codebase.
 
 ## Contributing
 
-Contributions are welcome! Feel free to submit pull requests or open issues.
+Contributions are welcome — from typo fixes to new tools! Read **[CONTRIBUTING.md](CONTRIBUTING.md)** for the dev setup, the edit–reload loop, a step-by-step "add a tool" walkthrough, and coding conventions.
+
+- Looking for a place to start? See issues labeled [`good first issue`](https://github.com/Demolinator/revit-mcp-server/labels/good%20first%20issue).
+- Found a bug or have an idea? [Open an issue](https://github.com/Demolinator/revit-mcp-server/issues/new/choose).
+- Please follow our [Code of Conduct](CODE_OF_CONDUCT.md), and report security issues privately per [SECURITY.md](SECURITY.md).
 
 ## Author
 

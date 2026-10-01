@@ -9,8 +9,7 @@ PURPOSE:       Defines the MCP tools that Claude can call. Each tool
                Revit-side route handler (revit_mcp/documentation.py).
 """
 
-from mcp.server.fastmcp import Context
-from .utils import format_response
+from .utils import Context, format_response
 
 
 def register_documentation_tools(mcp, revit_get, revit_post, revit_image=None):

@@ -4,7 +4,7 @@ Documentation Module for Revit MCP
 Handles sheet creation, schedule creation, and document export
 """
 
-from utils import get_element_name, get_element_id_value
+from utils import get_element_name, get_element_id_value, suppress_warnings
 from pyrevit import routes, revit, DB
 import json
 import traceback
@@ -77,6 +77,7 @@ def register_documentation_routes(api):
 
             t = DB.Transaction(doc, "Create Sheet via MCP")
             t.Start()
+            suppress_warnings(t)
 
             try:
                 if not target_tb.IsActive:
@@ -318,6 +319,7 @@ def register_documentation_routes(api):
 
             t = DB.Transaction(doc, "Create Schedule via MCP")
             t.Start()
+            suppress_warnings(t)
 
             try:
                 schedule = DB.ViewSchedule.CreateSchedule(doc, cat_id)
@@ -479,6 +481,7 @@ def register_documentation_routes(api):
 
             t = DB.Transaction(doc, "Export Document via MCP")
             t.Start()
+            suppress_warnings(t)
 
             try:
                 file_path = ""

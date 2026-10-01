@@ -1,14 +1,14 @@
 {
-    "builtin": "True",
-    "default_enabled": "False",
     "type": "extension",
-    "rocket_mode_compatible": "True",
     "name": "autoconst-revit-mcp",
     "description": "AutoConst Revit MCP — pyRevit Routes backend. Based on mcp-server-for-revit-python (MIT).",
-    "author": "Hamza Jabbar (AutoConst); original: Juan D. Rodriguez / Jean-Marc Couffin",
-    "author_profile": "https://www.linkedin.com/in/juan-david-rodriguez-3abbb5218/ https://www.linkedin.com/in/jmcouffin/",
     "url": "https://github.com/hamzaabduljabbar/autoconst-revit-mcp.git",
     "website": "https://hamzajabbar.online",
+    "author": "Hamza Jabbar (AutoConst); original: Juan D. Rodriguez / Jean-Marc Couffin / Talal Ahmed",
+    "author_profile": "https://github.com/Demolinator",
+    "builtin": "True",
+    "default_enabled": "False",
+    "rocket_mode_compatible": "True",
     "image": "",
     "dependencies": []
 }
