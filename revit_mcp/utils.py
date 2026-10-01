@@ -47,21 +47,24 @@ def suppress_warnings(transaction):
 
 
 def normalize_string(text):
-    """Safely normalize string values to ASCII-safe output."""
+    """Safely normalize string values, keeping non-ASCII characters (e.g. "Café").
+
+    JSON serialization escapes non-ASCII itself, so no lossy ASCII conversion here.
+    """
     if text is None:
         return "Unnamed"
     try:
-        return str(text).strip().encode('ascii', 'replace').decode('ascii')
+        return unicode(text).strip()
     except Exception:
         return "Unnamed"
 
 
 def sanitize_string(text):
-    """Sanitize a string to be ASCII-safe for JSON serialization."""
+    """Sanitize a value to a string for JSON serialization, keeping non-ASCII characters."""
     if text is None:
         return "Unnamed"
     try:
-        return str(text).encode('ascii', 'replace').decode('ascii')
+        return unicode(text)
     except Exception:
         return "Unnamed"
 
