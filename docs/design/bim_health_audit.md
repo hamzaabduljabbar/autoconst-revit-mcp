@@ -1,12 +1,22 @@
 # Design: `bim_health_audit` / `bim_health_fix` — native BIM Health Scorecard tools
 
-Status: **REVISION 2** — addresses independent review round 1 (Codex) · 2026-10-02
+Status: **REVISION 3** — addresses independent review rounds 1 and 2 (Codex) · 2026-10-02
 Author: Claude (with Hamza Jabbar)
 
-> Reviewer: this doc is self-contained. §0 maps each round-1 finding to its resolution.
-> Nothing is implemented yet. Remaining decisions for the author are in §11.
+> Reviewer: this doc is self-contained. §0 maps each finding to its resolution
+> (round 2 first). Nothing is implemented yet. Licensing decided (§11).
 
 ---
+
+## 0a. Round-2 review resolutions
+
+| # | Finding | Resolution | Section |
+|---|---|---|---|
+| R2-1 | Unmodified v1.3 only prints rounded output; can't support 1e-9 parity | Pinned capture script `tests/live/capture_v13_baseline.py`: executes the **unmodified** engine source text (fetched at a recorded scorecard-repo commit) with only `STAGE` substituted and the trailing print block stripped, then serializes in-memory `RESULTS`, `cat_scores`, `overall` at full precision (`repr` floats). Script + engine commit SHA + script SHA-256 recorded in each baseline file. | §7.1 |
+| R2-2 | N-01 can log two findings for one family | `fail_count_source: "findings"` for N-01 (and any rule whose v1.3 fails list can hold >1 entry per element). `fail_count` = v1.3 finding count, never deduplicated; `pass_rate` computed exactly as v1.3. Added `distinct_failing_elements` for every element-based rule. | §4.1 |
+| R2-3 | Capped response silently truncates the Excel Failing Elements sheet | Product choice: **the Excel is complete.** The skill calls the audit with `max_failing_ids: 0` (= no cap). The builder refuses to write a "complete" sheet if any rule has `failing_truncated: true`; if a cap was used it labels the sheet "SAMPLE — capped" and shows per-rule full and omitted counts. Default cap (200) remains for interactive/chat use. | §3, §4.1, §7.7 |
+| R2-4 | "First `{`" parser fragile | Health tools return **one JSON document as the entire text result** (no leading message line; summary lives in `message`). Adapter parses the whole text with `json.loads`. Applies to errors too. | §4.3 |
+| R2-5 | Ambiguous commit outcomes | Apply returns `transaction: {status: committed | rolled_back | unknown}` from Revit's `TransactionStatus`, never assumed. "Nothing written" only claimed when rollback is confirmed. Client timeout ⇒ outcome unknown ⇒ re-run preview/audit before any retry; documented in the tool description. | §4.2 |
 
 ## 0. Round-1 review resolutions
 
@@ -84,7 +94,8 @@ Input:
 { "stage": "design", "max_failing_ids": 200 }
 ```
 - `stage` ∈ `design | fabrication | operations` (default `design`); anything else → HTTP 400.
-- `max_failing_ids` integer 0–1000 (default 200), per rule.
+- `max_failing_ids` integer ≥ 0 (default 200), per rule. **`0` = no cap** (used by the Excel
+  builder, §4.3/§7.7). Counts and scores always reflect the full audit regardless of the cap.
 
 Output (`status: success`):
 ```json
@@ -104,7 +115,7 @@ Output (`status: success`):
     "applicable": true,
     "element_count": 142,
     "pass_rate": 0.93,
-    "fail_count": 10, "fail_count_source": "elements",
+    "fail_count": 10, "fail_count_source": "elements", "distinct_failing_elements": 10,
     "failing": [{"id": 745589, "reason": "Type Mark"}],
     "failing_returned": 1, "failing_truncated": false
   }],
@@ -122,12 +133,16 @@ Numbers are shape placeholders except `overall`/`grade` (Snowdon baseline).
 - `reason`: comma-joined missing parameter names for parameter rules; fixed tokens otherwise
   (`no OmniClass`, `no Assembly Code`, `unplaced/area0`, `unnamed`, `dup`, `illegal`).
 - `fail_count_source`:
-  - `"elements"` — `fail_count` = number of failing elements (all rules except below).
+  - `"elements"` — `fail_count` = number of failing elements; one finding per element.
+  - `"findings"` — `fail_count` = number of v1.3 findings, which may exceed distinct elements
+    (**N-01**: one family can log both `illegal` and `dup`). Never deduplicated; `pass_rate` is
+    v1.3's own value. `failing` lists findings (an element ID may repeat with different reasons).
   - `"aggregate"` — the rule scores a model-level quantity, not elements. Applies to
     **G-01** (Revit warnings: `fail_count` = warning count, `failing = []`, `element_count = null`)
     and **G-03** (imported CAD: v1.3 reports pass rate 0 with an empty fails list;
     release 1 sets `fail_count` = number of non-linked `ImportInstance`s and returns their IDs,
     leaving `pass_rate` exactly as v1.3 computes it).
+- `distinct_failing_elements` = number of unique element IDs among findings (null for aggregate rules).
 - `applicable: false` when the rule's category has no elements in the model (v1.3 skips the rule
   entirely; release 1 still lists it, with `pass_rate = null`, so absence is visible but scoring is unchanged).
 - `advisory` = v1.3 `na` flag.
@@ -173,8 +188,15 @@ The server is stateless: apply **recomputes the plan from the live document** an
    nothing written. (Covers document switch, intervening edits, changed modal values.)
 3. Open ONE transaction `"AutoConst: fill Assembly Codes"`; for each change re-read the param:
    if no longer empty or read-only → roll back the whole transaction, 409 `stale_plan`.
-4. Set values; commit. Any exception → roll back, 500 with traceback, nothing written.
-5. Return per-type results. One Ctrl+Z reverts the whole fix.
+4. Set values; commit. On exception → roll back; respond 500 with traceback.
+5. Response always includes `transaction: {"status": "committed" | "rolled_back" | "unknown", "revit_status": "<TransactionStatus>"}`,
+   read from the value returned by `Commit()` / `RollBack()` — never assumed. "Nothing written" is
+   claimed **only** when status is `rolled_back` (confirmed). Committed → per-type results;
+   one Ctrl+Z reverts the whole fix.
+6. **Ambiguous outcome:** if the client times out or the connection drops, the outcome is unknown —
+   Revit may have committed. A retried apply would then correctly return `stale_plan`. The tool
+   description instructs clients: after a timeout, run a fresh preview (or audit) to see the actual
+   state before any retry. Never re-apply blind.
 
 **Fill policy (v1.3, unchanged):** categories = v1.3 `CATS` (Structural Framing, Structural
 Columns, Structural Foundations, Windows, Plumbing Fixtures, Lighting Fixtures, Casework,
@@ -183,9 +205,15 @@ Never overwrites. **Walls/Floors/Roofs/Ceilings (C-05) and Doors are not touched
 gaps, listed in §9.
 
 ### 4.3 Response transport & the Excel adapter
-The MCP tool returns `format_response` text: optionally a `message` line, then JSON. The
-skill-side adapter must locate the first `{` and `json.loads` from there — tested against a
-captured real tool response (fixture), not a hand-written dict.
+The health tools do **not** use the shared `format_response` text layout. Their entire text
+result is **one JSON document** (success and error alike; human summary in `message`, errors in
+`error`). The skill adapter does `json.loads(text)` on the whole result — no brace scanning.
+Tested against a captured real tool response (fixture), not a hand-written dict.
+
+**Excel completeness (product choice):** the scorecard workbook's Failing Elements sheet must be
+complete. The skill calls `bim_health_audit` with `max_failing_ids: 0`. The builder checks every
+rule's `failing_truncated`; if any is true it titles the sheet **"SAMPLE — capped"** and adds
+per-rule `fail_count` and omitted-count columns, so a truncated sheet can never look complete.
 
 ## 5. Architecture
 
@@ -231,8 +259,16 @@ is available in pyRevit's IronPython; fallback: .NET `System.Security.Cryptograp
 
 ## 7. Test plan
 
-**7.1 Baseline capture (before porting).** Run the unmodified v1.3 script via `execute_revit_code`
-on the current Revit install and save a structured baseline JSON:
+**7.1 Baseline capture (before porting).** The unmodified v1.3 engine only prints rounded text,
+so a pinned capture script `tests/live/capture_v13_baseline.py` (host side) does:
+1. Read `engine/score_model.py` from the scorecard repo at a recorded commit SHA.
+2. Make exactly two textual changes: set `STAGE = "<stage>"`, and strip everything from the
+   final `print("=" * 66)` block onward (asserting that block is found exactly once).
+3. Append a serializer that emits `RESULTS`, `cat_scores`, `overall` as JSON with floats via `repr`
+   (full precision), plus each rule's fails list.
+4. Send via `execute_revit_code`; write `tests/live/baselines/<model>__<stage>.json`.
+Each baseline records the engine commit SHA and the SHA-256 of the capture script. Save a
+structured baseline JSON per stage containing:
 `{model_title, model_path, file_size, file_mtime, revit_version_build, engine_commit (scorecard repo SHA), stage, overall, grade, category_scores, rules:[{id, severity, advisory, applicable, pass_rate, fail_count}]}`
 for each stage (design / fabrication / operations). Compare to the 2026-07-31 saved result (85.77, B)
 and record any drift before proceeding.
@@ -265,7 +301,9 @@ explicitly assert P-09m is `info` at all stages (documents the quirk).
 formatter output parsed by the adapter from a captured real response.
 
 **7.7 Skill:** SKILL.md uses the tools; regenerate the Snowdon Excel; key cells match the old
-workbook (overall, grade, per-rule pass rates).
+workbook (overall, grade, per-rule pass rates) **and** the Failing Elements sheet row count equals
+Σ `fail_count` over rules with element/finding lists (complete, uncapped). A second run with a
+small cap must produce the "SAMPLE — capped" title and correct omitted counts.
 
 ## 8. Risks
 | Risk | Mitigation |
@@ -293,12 +331,12 @@ Engine 1.4 will ship with its own baselines and a changelog of score changes.
 5. Skill switch-over.
 Each step reviewed before the next.
 
-## 11. Decision required from the author (blocking merge)
-**Licensing of the ported engine.** The scorecard repo is Source-Available (no redistribution);
-this repo is MIT-derived. Options:
-- **A.** Author grants the ported engine files an MIT license (author confirms no third-party
-  contributions in the scorecard engine).
-- **B.** Keep AutoConst-authored files (engine port and future AutoConst features) under a
-  proprietary/Source-Available license, with per-file headers; upstream MIT files keep MIT + notices.
-  The repo's LICENSE/NOTICE then documents the split.
-Record the decision in `NOTICE` before merge.
+## 11. Licensing — DECIDED (option B)
+Author decision (2026-10-02): AutoConst-authored code is under the **AutoConst Source Available
+License** (same text as the scorecard repo): free to use and modify, including commercial use within
+one's own organisation; **no resale, sublicensing, rebranding or paid-service distribution**.
+The author retains the right to sell it.
+- Upstream files (mcp-server-for-revit-python / Demolinator fork) remain **MIT** with their notices.
+- AutoConst files carry a header: `# AutoConst Source Available License — see LICENSE-AUTOCONST`.
+- Repo root: `LICENSE` (MIT, upstream, unchanged), `LICENSE-AUTOCONST` (new), `NOTICE` documents the
+  split and which paths are which. Health engine/rules/routes/tools files are AutoConst files.

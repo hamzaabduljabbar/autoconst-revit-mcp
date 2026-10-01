@@ -1,7 +1,21 @@
 AutoConst Revit MCP
-Copyright (c) 2026 Hamza Jabbar
+Copyright (c) 2026 Hamza Jabbar / AutoConst (hamzajabbar.online)
 
-This product is derived from mcp-server-for-revit-python
-(https://github.com/mcp-servers-for-revit/mcp-server-for-revit-python),
-Copyright (c) 2025 Juan Rodriguez, and from the Demolinator/revit-mcp-server
-fork, Copyright (c) Talal Ahmed, both used under the MIT License (see LICENSE).
+This repository contains code under two licenses.
+
+1. Upstream code — MIT License (see LICENSE)
+   Derived from mcp-server-for-revit-python
+   (https://github.com/mcp-servers-for-revit/mcp-server-for-revit-python),
+   Copyright (c) 2025 Juan Rodriguez, and from the Demolinator/revit-mcp-server
+   fork, Copyright (c) Talal Ahmed. All files not listed in section 2 are
+   upstream-derived and remain under the MIT License with these notices.
+
+2. AutoConst code — AutoConst Source Available License (see LICENSE-AUTOCONST)
+   Free to use and modify, including commercial use within your own
+   organisation. No resale, sublicensing, rebranding or paid-service
+   distribution. Every AutoConst file starts with the header:
+     # AutoConst Source Available License - see LICENSE-AUTOCONST
+   AutoConst files include (as they are added):
+     revit_mcp/health_engine.py, revit_mcp/health_rules.py,
+     revit_mcp/health_routes.py, tools/health_tools.py,
+     docs/design/*
