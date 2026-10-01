@@ -1,0 +1,6276 @@
+{
+ "category_scores": {
+  "classification": 83.85652189214241,
+  "geometry": 64.28571428571429,
+  "naming": 100.0,
+  "parameters": 91.45299145299145
+ },
+ "document": {
+  "is_workshared": false,
+  "path": "C:\\Program Files\\Autodesk\\Revit 2024\\Samples\\Snowdon Towers Sample Architectural.rvt",
+  "revit_build": "24.3.60.12",
+  "revit_version": "2024",
+  "title": "Snowdon Towers Sample Architectural"
+ },
+ "grade": "B",
+ "overall": 85.15221582679816,
+ "provenance": {
+  "capture_script_sha256": "87b74f9f313e3cff7b88693ba454f9f7faf3b0368fede53d729fa77cd519f0ee",
+  "captured_at": "2026-10-02T02:28:06",
+  "engine_commit": "c9e988761e7a2025ab2a8bf9744df2c47c01135f",
+  "engine_repo": "C:\\Users\\Hamza\\autoconst-claude-bim-health-scorecard",
+  "engine_version": "1.3",
+  "model_file_mtime": "2023-07-13T11:53:14",
+  "model_file_size": 94531584,
+  "stage": "design"
+ },
+ "rules": [
+  {
+   "cat": "parameters",
+   "fails": [],
+   "id": "P-06",
+   "na": false,
+   "name": "Doors: Type Mark/Width/Height",
+   "passrate": 1.0,
+   "severity": "fail",
+   "src": "LOD C1030",
+   "weight": 2
+  },
+  {
+   "cat": "parameters",
+   "fails": [
+    [
+     742710,
+     "Fire Rating"
+    ],
+    [
+     759775,
+     "Fire Rating"
+    ],
+    [
+     837142,
+     "Fire Rating"
+    ],
+    [
+     837204,
+     "Fire Rating"
+    ],
+    [
+     837247,
+     "Fire Rating"
+    ],
+    [
+     837567,
+     "Fire Rating"
+    ],
+    [
+     837587,
+     "Fire Rating"
+    ],
+    [
+     882801,
+     "Fire Rating"
+    ],
+    [
+     1048452,
+     "Fire Rating"
+    ],
+    [
+     1290306,
+     "Fire Rating"
+    ],
+    [
+     1290416,
+     "Fire Rating"
+    ],
+    [
+     1290418,
+     "Fire Rating"
+    ],
+    [
+     1290420,
+     "Fire Rating"
+    ],
+    [
+     1298888,
+     "Fire Rating"
+    ],
+    [
+     1337960,
+     "Fire Rating"
+    ],
+    [
+     1433522,
+     "Fire Rating"
+    ],
+    [
+     1433760,
+     "Fire Rating"
+    ],
+    [
+     1433766,
+     "Fire Rating"
+    ],
+    [
+     1446705,
+     "Fire Rating"
+    ],
+    [
+     1447958,
+     "Fire Rating"
+    ],
+    [
+     1506352,
+     "Fire Rating"
+    ],
+    [
+     1514788,
+     "Fire Rating"
+    ],
+    [
+     1516507,
+     "Fire Rating"
+    ],
+    [
+     1593725,
+     "Fire Rating"
+    ],
+    [
+     1594273,
+     "Fire Rating"
+    ],
+    [
+     1594362,
+     "Fire Rating"
+    ],
+    [
+     1647567,
+     "Fire Rating"
+    ],
+    [
+     1921709,
+     "Fire Rating"
+    ],
+    [
+     2266459,
+     "Fire Rating"
+    ]
+   ],
+   "id": "P-06b",
+   "na": true,
+   "name": "Door Fire Rating coverage",
+   "passrate": 0.795774647887324,
+   "severity": "info",
+   "src": "LOD/na",
+   "weight": 1
+  },
+  {
+   "cat": "parameters",
+   "fails": [
+    [
+     631418,
+     "Operation"
+    ],
+    [
+     631497,
+     "Operation"
+    ],
+    [
+     631587,
+     "Operation"
+    ],
+    [
+     631685,
+     "Operation"
+    ],
+    [
+     631690,
+     "Operation"
+    ],
+    [
+     660426,
+     "Operation"
+    ],
+    [
+     660428,
+     "Operation"
+    ],
+    [
+     660429,
+     "Operation"
+    ],
+    [
+     660430,
+     "Operation"
+    ],
+    [
+     660431,
+     "Operation"
+    ],
+    [
+     678093,
+     "Operation"
+    ],
+    [
+     742710,
+     "Operation"
+    ],
+    [
+     742829,
+     "Operation"
+    ],
+    [
+     744342,
+     "Operation"
+    ],
+    [
+     745589,
+     "Operation"
+    ],
+    [
+     745827,
+     "Operation"
+    ],
+    [
+     745863,
+     "Operation"
+    ],
+    [
+     745963,
+     "Operation"
+    ],
+    [
+     759775,
+     "Operation"
+    ],
+    [
+     760053,
+     "Operation"
+    ],
+    [
+     760268,
+     "Operation"
+    ],
+    [
+     770489,
+     "Operation"
+    ],
+    [
+     785807,
+     "Operation"
+    ],
+    [
+     785960,
+     "Operation"
+    ],
+    [
+     786324,
+     "Operation"
+    ],
+    [
+     786598,
+     "Operation"
+    ],
+    [
+     786784,
+     "Operation"
+    ],
+    [
+     786853,
+     "Operation"
+    ],
+    [
+     787073,
+     "Operation"
+    ],
+    [
+     787122,
+     "Operation"
+    ],
+    [
+     787202,
+     "Operation"
+    ],
+    [
+     787251,
+     "Operation"
+    ],
+    [
+     787300,
+     "Operation"
+    ],
+    [
+     787781,
+     "Operation"
+    ],
+    [
+     787782,
+     "Operation"
+    ],
+    [
+     787839,
+     "Operation"
+    ],
+    [
+     787840,
+     "Operation"
+    ],
+    [
+     787897,
+     "Operation"
+    ],
+    [
+     787988,
+     "Operation"
+    ],
+    [
+     787989,
+     "Operation"
+    ],
+    [
+     788099,
+     "Operation"
+    ],
+    [
+     788100,
+     "Operation"
+    ],
+    [
+     788283,
+     "Operation"
+    ],
+    [
+     792079,
+     "Operation"
+    ],
+    [
+     792109,
+     "Operation"
+    ],
+    [
+     792330,
+     "Operation"
+    ],
+    [
+     800030,
+     "Operation"
+    ],
+    [
+     805013,
+     "Operation"
+    ],
+    [
+     806863,
+     "Operation"
+    ],
+    [
+     806957,
+     "Operation"
+    ],
+    [
+     807051,
+     "Operation"
+    ],
+    [
+     809470,
+     "Operation"
+    ],
+    [
+     812216,
+     "Operation"
+    ],
+    [
+     831927,
+     "Operation"
+    ],
+    [
+     837142,
+     "Operation"
+    ],
+    [
+     837204,
+     "Operation"
+    ],
+    [
+     837247,
+     "Operation"
+    ],
+    [
+     837567,
+     "Operation"
+    ],
+    [
+     837587,
+     "Operation"
+    ],
+    [
+     837996,
+     "Operation"
+    ],
+    [
+     838740,
+     "Operation"
+    ],
+    [
+     838794,
+     "Operation"
+    ],
+    [
+     868473,
+     "Operation"
+    ],
+    [
+     881710,
+     "Operation"
+    ],
+    [
+     881711,
+     "Operation"
+    ],
+    [
+     881712,
+     "Operation"
+    ],
+    [
+     881713,
+     "Operation"
+    ],
+    [
+     882801,
+     "Operation"
+    ],
+    [
+     887778,
+     "Operation"
+    ],
+    [
+     888336,
+     "Operation"
+    ],
+    [
+     888428,
+     "Operation"
+    ],
+    [
+     888592,
+     "Operation"
+    ],
+    [
+     888596,
+     "Operation"
+    ],
+    [
+     888600,
+     "Operation"
+    ],
+    [
+     900304,
+     "Operation"
+    ],
+    [
+     906900,
+     "Operation"
+    ],
+    [
+     908379,
+     "Operation"
+    ],
+    [
+     908582,
+     "Operation"
+    ],
+    [
+     908619,
+     "Operation"
+    ],
+    [
+     908750,
+     "Operation"
+    ],
+    [
+     1048452,
+     "Operation"
+    ],
+    [
+     1055444,
+     "Operation"
+    ],
+    [
+     1055510,
+     "Operation"
+    ],
+    [
+     1055798,
+     "Operation"
+    ],
+    [
+     1206137,
+     "Operation"
+    ],
+    [
+     1211538,
+     "Operation"
+    ],
+    [
+     1247720,
+     "Operation"
+    ],
+    [
+     1247789,
+     "Operation"
+    ],
+    [
+     1250146,
+     "Operation"
+    ],
+    [
+     1257796,
+     "Operation"
+    ],
+    [
+     1290306,
+     "Operation"
+    ],
+    [
+     1290416,
+     "Operation"
+    ],
+    [
+     1290418,
+     "Operation"
+    ],
+    [
+     1290420,
+     "Operation"
+    ],
+    [
+     1298888,
+     "Operation"
+    ],
+    [
+     1309129,
+     "Operation"
+    ],
+    [
+     1309343,
+     "Operation"
+    ],
+    [
+     1313008,
+     "Operation"
+    ],
+    [
+     1313065,
+     "Operation"
+    ],
+    [
+     1313122,
+     "Operation"
+    ],
+    [
+     1313224,
+     "Operation"
+    ],
+    [
+     1313706,
+     "Operation"
+    ],
+    [
+     1313713,
+     "Operation"
+    ],
+    [
+     1319094,
+     "Operation"
+    ],
+    [
+     1321069,
+     "Operation"
+    ],
+    [
+     1321726,
+     "Operation"
+    ],
+    [
+     1322101,
+     "Operation"
+    ],
+    [
+     1322136,
+     "Operation"
+    ],
+    [
+     1337960,
+     "Operation"
+    ],
+    [
+     1388596,
+     "Operation"
+    ],
+    [
+     1388597,
+     "Operation"
+    ],
+    [
+     1390329,
+     "Operation"
+    ],
+    [
+     1390771,
+     "Operation"
+    ],
+    [
+     1390772,
+     "Operation"
+    ],
+    [
+     1392646,
+     "Operation"
+    ],
+    [
+     1393544,
+     "Operation"
+    ],
+    [
+     1433522,
+     "Operation"
+    ],
+    [
+     1433760,
+     "Operation"
+    ],
+    [
+     1433766,
+     "Operation"
+    ],
+    [
+     1446705,
+     "Operation"
+    ],
+    [
+     1447958,
+     "Operation"
+    ],
+    [
+     1506352,
+     "Operation"
+    ],
+    [
+     1514788,
+     "Operation"
+    ],
+    [
+     1516507,
+     "Operation"
+    ],
+    [
+     1558043,
+     "Operation"
+    ],
+    [
+     1593725,
+     "Operation"
+    ],
+    [
+     1594273,
+     "Operation"
+    ],
+    [
+     1594362,
+     "Operation"
+    ],
+    [
+     1647567,
+     "Operation"
+    ],
+    [
+     1694190,
+     "Operation"
+    ],
+    [
+     1694219,
+     "Operation"
+    ],
+    [
+     1919944,
+     "Operation"
+    ],
+    [
+     1919945,
+     "Operation"
+    ],
+    [
+     1919946,
+     "Operation"
+    ],
+    [
+     1919947,
+     "Operation"
+    ],
+    [
+     1919948,
+     "Operation"
+    ],
+    [
+     1919949,
+     "Operation"
+    ],
+    [
+     1921709,
+     "Operation"
+    ],
+    [
+     2023764,
+     "Operation"
+    ],
+    [
+     2107987,
+     "Operation"
+    ],
+    [
+     2174112,
+     "Operation"
+    ],
+    [
+     2266459,
+     "Operation"
+    ]
+   ],
+   "id": "P-06c",
+   "na": true,
+   "name": "Door Operation type",
+   "passrate": 0.0,
+   "severity": "info",
+   "src": "LOD C1030",
+   "weight": 1
+  },
+  {
+   "cat": "parameters",
+   "fails": [],
+   "id": "P-07",
+   "na": false,
+   "name": "Windows: Type Mark/Width/Height",
+   "passrate": 1.0,
+   "severity": "warn",
+   "src": "LOD C1020",
+   "weight": 1
+  },
+  {
+   "cat": "parameters",
+   "fails": [],
+   "id": "P-07b",
+   "na": true,
+   "name": "Window U-value coverage",
+   "passrate": 1.0,
+   "severity": "info",
+   "src": "LOD C1020",
+   "weight": 1
+  },
+  {
+   "cat": "parameters",
+   "fails": [
+    [
+     763179,
+     "Manufacturer,Model"
+    ],
+    [
+     773245,
+     "Manufacturer,Model"
+    ],
+    [
+     774052,
+     "Manufacturer,Model"
+    ],
+    [
+     774082,
+     "Manufacturer,Model"
+    ],
+    [
+     782462,
+     "Manufacturer,Model"
+    ],
+    [
+     785956,
+     "Manufacturer,Model"
+    ],
+    [
+     785961,
+     "Manufacturer,Model"
+    ],
+    [
+     785964,
+     "Manufacturer,Model"
+    ],
+    [
+     785965,
+     "Manufacturer,Model"
+    ],
+    [
+     785972,
+     "Manufacturer,Model"
+    ],
+    [
+     786320,
+     "Manufacturer,Model"
+    ],
+    [
+     786325,
+     "Manufacturer,Model"
+    ],
+    [
+     786328,
+     "Manufacturer,Model"
+    ],
+    [
+     786329,
+     "Manufacturer,Model"
+    ],
+    [
+     786336,
+     "Manufacturer,Model"
+    ],
+    [
+     786594,
+     "Manufacturer,Model"
+    ],
+    [
+     786599,
+     "Manufacturer,Model"
+    ],
+    [
+     786610,
+     "Manufacturer,Model"
+    ],
+    [
+     787069,
+     "Manufacturer,Model"
+    ],
+    [
+     787074,
+     "Manufacturer,Model"
+    ],
+    [
+     787077,
+     "Manufacturer,Model"
+    ],
+    [
+     787078,
+     "Manufacturer,Model"
+    ],
+    [
+     787085,
+     "Manufacturer,Model"
+    ],
+    [
+     787118,
+     "Manufacturer,Model"
+    ],
+    [
+     787123,
+     "Manufacturer,Model"
+    ],
+    [
+     787126,
+     "Manufacturer,Model"
+    ],
+    [
+     787127,
+     "Manufacturer,Model"
+    ],
+    [
+     787134,
+     "Manufacturer,Model"
+    ],
+    [
+     787198,
+     "Manufacturer,Model"
+    ],
+    [
+     787203,
+     "Manufacturer,Model"
+    ],
+    [
+     787214,
+     "Manufacturer,Model"
+    ],
+    [
+     787247,
+     "Manufacturer,Model"
+    ],
+    [
+     787252,
+     "Manufacturer,Model"
+    ],
+    [
+     787263,
+     "Manufacturer,Model"
+    ],
+    [
+     787296,
+     "Manufacturer,Model"
+    ],
+    [
+     787301,
+     "Manufacturer,Model"
+    ],
+    [
+     787312,
+     "Manufacturer,Model"
+    ],
+    [
+     799696,
+     "Manufacturer,Model"
+    ],
+    [
+     800258,
+     "Manufacturer,Model"
+    ],
+    [
+     800259,
+     "Manufacturer,Model"
+    ],
+    [
+     803109,
+     "Manufacturer,Model"
+    ],
+    [
+     808937,
+     "Manufacturer,Model"
+    ],
+    [
+     809467,
+     "Manufacturer,Model"
+    ],
+    [
+     809637,
+     "Manufacturer,Model"
+    ],
+    [
+     809638,
+     "Manufacturer,Model"
+    ],
+    [
+     837992,
+     "Manufacturer,Model"
+    ],
+    [
+     838000,
+     "Manufacturer,Model"
+    ],
+    [
+     838001,
+     "Manufacturer,Model"
+    ],
+    [
+     838008,
+     "Manufacturer,Model"
+    ],
+    [
+     838396,
+     "Manufacturer,Model"
+    ],
+    [
+     874809,
+     "Manufacturer,Model"
+    ],
+    [
+     874817,
+     "Manufacturer,Model"
+    ],
+    [
+     906899,
+     "Manufacturer,Model"
+    ],
+    [
+     906901,
+     "Manufacturer,Model"
+    ],
+    [
+     906902,
+     "Manufacturer,Model"
+    ],
+    [
+     906912,
+     "Manufacturer,Model"
+    ],
+    [
+     908378,
+     "Manufacturer,Model"
+    ],
+    [
+     908380,
+     "Manufacturer,Model"
+    ],
+    [
+     908381,
+     "Manufacturer,Model"
+    ],
+    [
+     908391,
+     "Manufacturer,Model"
+    ],
+    [
+     908581,
+     "Manufacturer,Model"
+    ],
+    [
+     908583,
+     "Manufacturer,Model"
+    ],
+    [
+     908584,
+     "Manufacturer,Model"
+    ],
+    [
+     908594,
+     "Manufacturer,Model"
+    ],
+    [
+     908618,
+     "Manufacturer,Model"
+    ],
+    [
+     908620,
+     "Manufacturer,Model"
+    ],
+    [
+     908621,
+     "Manufacturer,Model"
+    ],
+    [
+     908631,
+     "Manufacturer,Model"
+    ],
+    [
+     908749,
+     "Manufacturer,Model"
+    ],
+    [
+     908751,
+     "Manufacturer,Model"
+    ],
+    [
+     908752,
+     "Manufacturer,Model"
+    ],
+    [
+     908762,
+     "Manufacturer,Model"
+    ],
+    [
+     1135932,
+     "Manufacturer,Model"
+    ],
+    [
+     1135933,
+     "Manufacturer,Model"
+    ],
+    [
+     1135940,
+     "Manufacturer,Model"
+    ],
+    [
+     1135948,
+     "Manufacturer,Model"
+    ],
+    [
+     1135955,
+     "Manufacturer,Model"
+    ],
+    [
+     1135956,
+     "Manufacturer,Model"
+    ],
+    [
+     1135957,
+     "Manufacturer,Model"
+    ],
+    [
+     1135972,
+     "Manufacturer,Model"
+    ],
+    [
+     1135973,
+     "Manufacturer,Model"
+    ],
+    [
+     1135974,
+     "Manufacturer,Model"
+    ],
+    [
+     1248448,
+     "Manufacturer,Model"
+    ],
+    [
+     1248519,
+     "Manufacturer,Model"
+    ],
+    [
+     1248771,
+     "Manufacturer,Model"
+    ],
+    [
+     1248927,
+     "Manufacturer,Model"
+    ],
+    [
+     1248928,
+     "Manufacturer,Model"
+    ],
+    [
+     1248934,
+     "Manufacturer,Model"
+    ],
+    [
+     1313007,
+     "Manufacturer,Model"
+    ],
+    [
+     1313009,
+     "Manufacturer,Model"
+    ],
+    [
+     1313010,
+     "Manufacturer,Model"
+    ],
+    [
+     1313020,
+     "Manufacturer,Model"
+    ],
+    [
+     1313064,
+     "Manufacturer,Model"
+    ],
+    [
+     1313066,
+     "Manufacturer,Model"
+    ],
+    [
+     1313067,
+     "Manufacturer,Model"
+    ],
+    [
+     1313077,
+     "Manufacturer,Model"
+    ],
+    [
+     1313121,
+     "Manufacturer,Model"
+    ],
+    [
+     1313123,
+     "Manufacturer,Model"
+    ],
+    [
+     1313124,
+     "Manufacturer,Model"
+    ],
+    [
+     1313134,
+     "Manufacturer,Model"
+    ],
+    [
+     1319082,
+     "Manufacturer,Model"
+    ],
+    [
+     1319092,
+     "Manufacturer,Model"
+    ],
+    [
+     1319095,
+     "Manufacturer,Model"
+    ],
+    [
+     1319096,
+     "Manufacturer,Model"
+    ],
+    [
+     1321728,
+     "Manufacturer,Model"
+    ],
+    [
+     1321729,
+     "Manufacturer,Model"
+    ],
+    [
+     1321731,
+     "Manufacturer,Model"
+    ],
+    [
+     1322103,
+     "Manufacturer,Model"
+    ],
+    [
+     1322104,
+     "Manufacturer,Model"
+    ],
+    [
+     1322106,
+     "Manufacturer,Model"
+    ],
+    [
+     1322138,
+     "Manufacturer,Model"
+    ],
+    [
+     1322139,
+     "Manufacturer,Model"
+    ],
+    [
+     1322141,
+     "Manufacturer,Model"
+    ],
+    [
+     1389105,
+     "Manufacturer,Model"
+    ],
+    [
+     1389106,
+     "Manufacturer,Model"
+    ],
+    [
+     1389108,
+     "Manufacturer,Model"
+    ],
+    [
+     1389110,
+     "Manufacturer,Model"
+    ],
+    [
+     1389111,
+     "Manufacturer,Model"
+    ],
+    [
+     1389113,
+     "Manufacturer,Model"
+    ],
+    [
+     1390242,
+     "Manufacturer,Model"
+    ],
+    [
+     1390775,
+     "Manufacturer,Model"
+    ],
+    [
+     1390776,
+     "Manufacturer,Model"
+    ],
+    [
+     1390780,
+     "Manufacturer,Model"
+    ],
+    [
+     1390781,
+     "Manufacturer,Model"
+    ],
+    [
+     1391816,
+     "Manufacturer,Model"
+    ],
+    [
+     1391901,
+     "Manufacturer,Model"
+    ],
+    [
+     1392647,
+     "Manufacturer,Model"
+    ],
+    [
+     1392648,
+     "Manufacturer,Model"
+    ],
+    [
+     1392652,
+     "Manufacturer,Model"
+    ],
+    [
+     1393334,
+     "Manufacturer,Model"
+    ],
+    [
+     1393512,
+     "Manufacturer,Model"
+    ],
+    [
+     1393513,
+     "Manufacturer,Model"
+    ],
+    [
+     1921146,
+     "Manufacturer,Model"
+    ],
+    [
+     1921147,
+     "Manufacturer,Model"
+    ],
+    [
+     1921148,
+     "Manufacturer,Model"
+    ],
+    [
+     1963542,
+     "Manufacturer,Model"
+    ],
+    [
+     1963543,
+     "Manufacturer,Model"
+    ],
+    [
+     1963545,
+     "Manufacturer,Model"
+    ],
+    [
+     1963546,
+     "Manufacturer,Model"
+    ],
+    [
+     1963548,
+     "Manufacturer,Model"
+    ],
+    [
+     1963559,
+     "Manufacturer,Model"
+    ],
+    [
+     2239127,
+     "Manufacturer,Model"
+    ],
+    [
+     2239128,
+     "Manufacturer,Model"
+    ],
+    [
+     2239147,
+     "Manufacturer,Model"
+    ],
+    [
+     2239148,
+     "Manufacturer,Model"
+    ],
+    [
+     2239151,
+     "Manufacturer,Model"
+    ],
+    [
+     2239152,
+     "Manufacturer,Model"
+    ],
+    [
+     2239155,
+     "Manufacturer,Model"
+    ],
+    [
+     2239156,
+     "Manufacturer,Model"
+    ]
+   ],
+   "id": "P-04p",
+   "na": true,
+   "name": "Plumbing fix: Manufacturer/Model",
+   "passrate": 0.0,
+   "severity": "info",
+   "src": "COBie Type",
+   "weight": 1
+  },
+  {
+   "cat": "parameters",
+   "fails": [
+    [
+     1431991,
+     "Manufacturer,Model"
+    ],
+    [
+     1432355,
+     "Manufacturer,Model"
+    ],
+    [
+     1432391,
+     "Manufacturer,Model"
+    ],
+    [
+     1432409,
+     "Manufacturer,Model"
+    ],
+    [
+     1432427,
+     "Manufacturer,Model"
+    ],
+    [
+     1432553,
+     "Manufacturer,Model"
+    ],
+    [
+     1432581,
+     "Manufacturer,Model"
+    ],
+    [
+     1432800,
+     "Manufacturer,Model"
+    ],
+    [
+     1432801,
+     "Manufacturer,Model"
+    ],
+    [
+     1432838,
+     "Manufacturer,Model"
+    ],
+    [
+     1432839,
+     "Manufacturer,Model"
+    ],
+    [
+     1432857,
+     "Manufacturer,Model"
+    ],
+    [
+     1432858,
+     "Manufacturer,Model"
+    ],
+    [
+     1432876,
+     "Manufacturer,Model"
+    ],
+    [
+     1432877,
+     "Manufacturer,Model"
+    ],
+    [
+     1455355,
+     "Manufacturer,Model"
+    ],
+    [
+     1455357,
+     "Manufacturer,Model"
+    ],
+    [
+     1455358,
+     "Manufacturer,Model"
+    ],
+    [
+     1455359,
+     "Manufacturer,Model"
+    ],
+    [
+     1455360,
+     "Manufacturer,Model"
+    ],
+    [
+     1455361,
+     "Manufacturer,Model"
+    ],
+    [
+     1455362,
+     "Manufacturer,Model"
+    ],
+    [
+     1455363,
+     "Manufacturer,Model"
+    ],
+    [
+     1455484,
+     "Manufacturer,Model"
+    ],
+    [
+     1455486,
+     "Manufacturer,Model"
+    ],
+    [
+     1455487,
+     "Manufacturer,Model"
+    ],
+    [
+     1455488,
+     "Manufacturer,Model"
+    ],
+    [
+     1455489,
+     "Manufacturer,Model"
+    ],
+    [
+     1455490,
+     "Manufacturer,Model"
+    ],
+    [
+     1455491,
+     "Manufacturer,Model"
+    ],
+    [
+     1455492,
+     "Manufacturer,Model"
+    ],
+    [
+     1455640,
+     "Manufacturer,Model"
+    ],
+    [
+     1455642,
+     "Manufacturer,Model"
+    ],
+    [
+     1455643,
+     "Manufacturer,Model"
+    ],
+    [
+     1455644,
+     "Manufacturer,Model"
+    ],
+    [
+     1455645,
+     "Manufacturer,Model"
+    ],
+    [
+     1455646,
+     "Manufacturer,Model"
+    ],
+    [
+     1455647,
+     "Manufacturer,Model"
+    ],
+    [
+     1455648,
+     "Manufacturer,Model"
+    ],
+    [
+     1561272,
+     "Manufacturer,Model"
+    ],
+    [
+     1561321,
+     "Manufacturer,Model"
+    ],
+    [
+     1561392,
+     "Manufacturer,Model"
+    ],
+    [
+     1561412,
+     "Manufacturer,Model"
+    ],
+    [
+     1562065,
+     "Manufacturer,Model"
+    ],
+    [
+     1562066,
+     "Manufacturer,Model"
+    ],
+    [
+     1562067,
+     "Manufacturer,Model"
+    ],
+    [
+     1562068,
+     "Manufacturer,Model"
+    ],
+    [
+     1563022,
+     "Manufacturer,Model"
+    ],
+    [
+     1563259,
+     "Manufacturer,Model"
+    ],
+    [
+     1566270,
+     "Manufacturer,Model"
+    ],
+    [
+     1566353,
+     "Manufacturer,Model"
+    ],
+    [
+     1566455,
+     "Manufacturer,Model"
+    ],
+    [
+     1566508,
+     "Manufacturer,Model"
+    ],
+    [
+     1567230,
+     "Manufacturer,Model"
+    ],
+    [
+     1567430,
+     "Manufacturer,Model"
+    ],
+    [
+     1567544,
+     "Manufacturer,Model"
+    ],
+    [
+     1567552,
+     "Manufacturer,Model"
+    ],
+    [
+     1567564,
+     "Manufacturer,Model"
+    ],
+    [
+     1567609,
+     "Manufacturer,Model"
+    ],
+    [
+     1567671,
+     "Manufacturer,Model"
+    ],
+    [
+     1567716,
+     "Manufacturer,Model"
+    ],
+    [
+     1567771,
+     "Manufacturer,Model"
+    ],
+    [
+     1567815,
+     "Manufacturer,Model"
+    ],
+    [
+     1567817,
+     "Manufacturer,Model"
+    ],
+    [
+     1567915,
+     "Manufacturer,Model"
+    ],
+    [
+     1567923,
+     "Manufacturer,Model"
+    ],
+    [
+     1568071,
+     "Manufacturer,Model"
+    ],
+    [
+     1568073,
+     "Manufacturer,Model"
+    ],
+    [
+     1568074,
+     "Manufacturer,Model"
+    ],
+    [
+     1569202,
+     "Manufacturer,Model"
+    ],
+    [
+     1569203,
+     "Manufacturer,Model"
+    ],
+    [
+     1569204,
+     "Manufacturer,Model"
+    ],
+    [
+     1569205,
+     "Manufacturer,Model"
+    ],
+    [
+     1569206,
+     "Manufacturer,Model"
+    ],
+    [
+     1569207,
+     "Manufacturer,Model"
+    ],
+    [
+     1569208,
+     "Manufacturer,Model"
+    ],
+    [
+     1569209,
+     "Manufacturer,Model"
+    ],
+    [
+     1569672,
+     "Manufacturer,Model"
+    ],
+    [
+     1569673,
+     "Manufacturer,Model"
+    ],
+    [
+     1570064,
+     "Manufacturer,Model"
+    ],
+    [
+     1570065,
+     "Manufacturer,Model"
+    ],
+    [
+     1570089,
+     "Manufacturer,Model"
+    ],
+    [
+     1570090,
+     "Manufacturer,Model"
+    ],
+    [
+     1570114,
+     "Manufacturer,Model"
+    ],
+    [
+     1570115,
+     "Manufacturer,Model"
+    ],
+    [
+     1570489,
+     "Manufacturer,Model"
+    ],
+    [
+     1570490,
+     "Manufacturer,Model"
+    ],
+    [
+     1570491,
+     "Manufacturer,Model"
+    ],
+    [
+     1570717,
+     "Manufacturer,Model"
+    ],
+    [
+     1570718,
+     "Manufacturer,Model"
+    ],
+    [
+     1570719,
+     "Manufacturer,Model"
+    ],
+    [
+     1570737,
+     "Manufacturer,Model"
+    ],
+    [
+     1570738,
+     "Manufacturer,Model"
+    ],
+    [
+     1570739,
+     "Manufacturer,Model"
+    ],
+    [
+     1570757,
+     "Manufacturer,Model"
+    ],
+    [
+     1570758,
+     "Manufacturer,Model"
+    ],
+    [
+     1570759,
+     "Manufacturer,Model"
+    ],
+    [
+     1572708,
+     "Manufacturer,Model"
+    ],
+    [
+     1572709,
+     "Manufacturer,Model"
+    ],
+    [
+     1572710,
+     "Manufacturer,Model"
+    ],
+    [
+     1573726,
+     "Manufacturer,Model"
+    ],
+    [
+     1573727,
+     "Manufacturer,Model"
+    ],
+    [
+     1573728,
+     "Manufacturer,Model"
+    ],
+    [
+     1573746,
+     "Manufacturer,Model"
+    ],
+    [
+     1573747,
+     "Manufacturer,Model"
+    ],
+    [
+     1573748,
+     "Manufacturer,Model"
+    ],
+    [
+     1573766,
+     "Manufacturer,Model"
+    ],
+    [
+     1573767,
+     "Manufacturer,Model"
+    ],
+    [
+     1573768,
+     "Manufacturer,Model"
+    ],
+    [
+     1573786,
+     "Manufacturer,Model"
+    ],
+    [
+     1573787,
+     "Manufacturer,Model"
+    ],
+    [
+     1573788,
+     "Manufacturer,Model"
+    ],
+    [
+     1573806,
+     "Manufacturer,Model"
+    ],
+    [
+     1573807,
+     "Manufacturer,Model"
+    ],
+    [
+     1573808,
+     "Manufacturer,Model"
+    ],
+    [
+     1573826,
+     "Manufacturer,Model"
+    ],
+    [
+     1573827,
+     "Manufacturer,Model"
+    ],
+    [
+     1573828,
+     "Manufacturer,Model"
+    ],
+    [
+     1575479,
+     "Manufacturer,Model"
+    ],
+    [
+     1575480,
+     "Manufacturer,Model"
+    ],
+    [
+     1575481,
+     "Manufacturer,Model"
+    ],
+    [
+     1575804,
+     "Manufacturer,Model"
+    ],
+    [
+     1575805,
+     "Manufacturer,Model"
+    ],
+    [
+     1575806,
+     "Manufacturer,Model"
+    ],
+    [
+     1576125,
+     "Manufacturer,Model"
+    ],
+    [
+     1576126,
+     "Manufacturer,Model"
+    ],
+    [
+     1576301,
+     "Manufacturer,Model"
+    ],
+    [
+     1576789,
+     "Manufacturer,Model"
+    ],
+    [
+     1576790,
+     "Manufacturer,Model"
+    ],
+    [
+     1576791,
+     "Manufacturer,Model"
+    ],
+    [
+     1576792,
+     "Manufacturer,Model"
+    ],
+    [
+     1576793,
+     "Manufacturer,Model"
+    ],
+    [
+     1576794,
+     "Manufacturer,Model"
+    ],
+    [
+     1576795,
+     "Manufacturer,Model"
+    ],
+    [
+     1576796,
+     "Manufacturer,Model"
+    ],
+    [
+     1576797,
+     "Manufacturer,Model"
+    ],
+    [
+     1576798,
+     "Manufacturer,Model"
+    ],
+    [
+     1576799,
+     "Manufacturer,Model"
+    ],
+    [
+     1577057,
+     "Manufacturer,Model"
+    ],
+    [
+     1577058,
+     "Manufacturer,Model"
+    ],
+    [
+     1577059,
+     "Manufacturer,Model"
+    ],
+    [
+     1577060,
+     "Manufacturer,Model"
+    ],
+    [
+     1577061,
+     "Manufacturer,Model"
+    ],
+    [
+     1577062,
+     "Manufacturer,Model"
+    ],
+    [
+     1577063,
+     "Manufacturer,Model"
+    ],
+    [
+     1577064,
+     "Manufacturer,Model"
+    ],
+    [
+     1577065,
+     "Manufacturer,Model"
+    ],
+    [
+     1577066,
+     "Manufacturer,Model"
+    ],
+    [
+     1577067,
+     "Manufacturer,Model"
+    ],
+    [
+     1577068,
+     "Manufacturer,Model"
+    ],
+    [
+     1577069,
+     "Manufacturer,Model"
+    ],
+    [
+     1577070,
+     "Manufacturer,Model"
+    ],
+    [
+     1577151,
+     "Manufacturer,Model"
+    ],
+    [
+     1577152,
+     "Manufacturer,Model"
+    ],
+    [
+     1577153,
+     "Manufacturer,Model"
+    ],
+    [
+     1577154,
+     "Manufacturer,Model"
+    ],
+    [
+     1577155,
+     "Manufacturer,Model"
+    ],
+    [
+     1577156,
+     "Manufacturer,Model"
+    ],
+    [
+     1577157,
+     "Manufacturer,Model"
+    ],
+    [
+     1577158,
+     "Manufacturer,Model"
+    ],
+    [
+     1577159,
+     "Manufacturer,Model"
+    ],
+    [
+     1577160,
+     "Manufacturer,Model"
+    ],
+    [
+     1577161,
+     "Manufacturer,Model"
+    ],
+    [
+     1580462,
+     "Manufacturer,Model"
+    ],
+    [
+     1582115,
+     "Manufacturer,Model"
+    ],
+    [
+     1582135,
+     "Manufacturer,Model"
+    ],
+    [
+     1582513,
+     "Manufacturer,Model"
+    ],
+    [
+     1582514,
+     "Manufacturer,Model"
+    ],
+    [
+     1582744,
+     "Manufacturer,Model"
+    ],
+    [
+     1582745,
+     "Manufacturer,Model"
+    ],
+    [
+     1582948,
+     "Manufacturer,Model"
+    ],
+    [
+     1582949,
+     "Manufacturer,Model"
+    ],
+    [
+     1583125,
+     "Manufacturer,Model"
+    ],
+    [
+     1583126,
+     "Manufacturer,Model"
+    ],
+    [
+     1601040,
+     "Manufacturer,Model"
+    ],
+    [
+     1601042,
+     "Manufacturer,Model"
+    ],
+    [
+     1601044,
+     "Manufacturer,Model"
+    ],
+    [
+     1601046,
+     "Manufacturer,Model"
+    ],
+    [
+     1601267,
+     "Manufacturer,Model"
+    ],
+    [
+     1601366,
+     "Manufacturer,Model"
+    ],
+    [
+     1601457,
+     "Manufacturer,Model"
+    ],
+    [
+     1601790,
+     "Manufacturer,Model"
+    ],
+    [
+     1602800,
+     "Manufacturer,Model"
+    ],
+    [
+     1602917,
+     "Manufacturer,Model"
+    ],
+    [
+     1603041,
+     "Manufacturer,Model"
+    ],
+    [
+     1603042,
+     "Manufacturer,Model"
+    ],
+    [
+     1612603,
+     "Manufacturer,Model"
+    ],
+    [
+     1612604,
+     "Manufacturer,Model"
+    ],
+    [
+     1612605,
+     "Manufacturer,Model"
+    ],
+    [
+     1612606,
+     "Manufacturer,Model"
+    ],
+    [
+     1612607,
+     "Manufacturer,Model"
+    ],
+    [
+     1612608,
+     "Manufacturer,Model"
+    ],
+    [
+     1612609,
+     "Manufacturer,Model"
+    ],
+    [
+     1612610,
+     "Manufacturer,Model"
+    ],
+    [
+     1612611,
+     "Manufacturer,Model"
+    ],
+    [
+     1612612,
+     "Manufacturer,Model"
+    ],
+    [
+     1612613,
+     "Manufacturer,Model"
+    ],
+    [
+     1612614,
+     "Manufacturer,Model"
+    ],
+    [
+     1612615,
+     "Manufacturer,Model"
+    ],
+    [
+     1612616,
+     "Manufacturer,Model"
+    ],
+    [
+     1612617,
+     "Manufacturer,Model"
+    ],
+    [
+     1612618,
+     "Manufacturer,Model"
+    ],
+    [
+     1612619,
+     "Manufacturer,Model"
+    ],
+    [
+     1657165,
+     "Manufacturer,Model"
+    ],
+    [
+     1657347,
+     "Manufacturer,Model"
+    ],
+    [
+     1658714,
+     "Manufacturer,Model"
+    ],
+    [
+     1658775,
+     "Manufacturer,Model"
+    ],
+    [
+     1662916,
+     "Manufacturer,Model"
+    ],
+    [
+     1664941,
+     "Manufacturer,Model"
+    ],
+    [
+     1664943,
+     "Manufacturer,Model"
+    ],
+    [
+     1664980,
+     "Manufacturer,Model"
+    ],
+    [
+     1664982,
+     "Manufacturer,Model"
+    ],
+    [
+     1664984,
+     "Manufacturer,Model"
+    ],
+    [
+     1664985,
+     "Manufacturer,Model"
+    ],
+    [
+     1664988,
+     "Manufacturer,Model"
+    ],
+    [
+     1664990,
+     "Manufacturer,Model"
+    ],
+    [
+     1664992,
+     "Manufacturer,Model"
+    ],
+    [
+     1664993,
+     "Manufacturer,Model"
+    ],
+    [
+     1664996,
+     "Manufacturer,Model"
+    ],
+    [
+     1664998,
+     "Manufacturer,Model"
+    ],
+    [
+     1665000,
+     "Manufacturer,Model"
+    ],
+    [
+     1665001,
+     "Manufacturer,Model"
+    ],
+    [
+     1665567,
+     "Manufacturer,Model"
+    ],
+    [
+     1665569,
+     "Manufacturer,Model"
+    ],
+    [
+     1666711,
+     "Manufacturer,Model"
+    ],
+    [
+     1666712,
+     "Manufacturer,Model"
+    ],
+    [
+     1666717,
+     "Manufacturer,Model"
+    ],
+    [
+     1666718,
+     "Manufacturer,Model"
+    ],
+    [
+     1666721,
+     "Manufacturer,Model"
+    ],
+    [
+     1666722,
+     "Manufacturer,Model"
+    ],
+    [
+     1666725,
+     "Manufacturer,Model"
+    ],
+    [
+     1666726,
+     "Manufacturer,Model"
+    ],
+    [
+     1666728,
+     "Manufacturer,Model"
+    ],
+    [
+     1667679,
+     "Manufacturer,Model"
+    ],
+    [
+     1667748,
+     "Manufacturer,Model"
+    ],
+    [
+     1667751,
+     "Manufacturer,Model"
+    ],
+    [
+     1667846,
+     "Manufacturer,Model"
+    ],
+    [
+     1667847,
+     "Manufacturer,Model"
+    ],
+    [
+     1667848,
+     "Manufacturer,Model"
+    ],
+    [
+     1667849,
+     "Manufacturer,Model"
+    ],
+    [
+     1667850,
+     "Manufacturer,Model"
+    ],
+    [
+     1667851,
+     "Manufacturer,Model"
+    ],
+    [
+     1667852,
+     "Manufacturer,Model"
+    ],
+    [
+     1667853,
+     "Manufacturer,Model"
+    ],
+    [
+     1667854,
+     "Manufacturer,Model"
+    ],
+    [
+     1667858,
+     "Manufacturer,Model"
+    ],
+    [
+     1667859,
+     "Manufacturer,Model"
+    ],
+    [
+     1667860,
+     "Manufacturer,Model"
+    ],
+    [
+     1668620,
+     "Manufacturer,Model"
+    ],
+    [
+     1668621,
+     "Manufacturer,Model"
+    ],
+    [
+     1668622,
+     "Manufacturer,Model"
+    ],
+    [
+     1668623,
+     "Manufacturer,Model"
+    ],
+    [
+     1668624,
+     "Manufacturer,Model"
+    ],
+    [
+     1668625,
+     "Manufacturer,Model"
+    ],
+    [
+     1668626,
+     "Manufacturer,Model"
+    ],
+    [
+     1668627,
+     "Manufacturer,Model"
+    ],
+    [
+     1668628,
+     "Manufacturer,Model"
+    ],
+    [
+     1668633,
+     "Manufacturer,Model"
+    ],
+    [
+     1668634,
+     "Manufacturer,Model"
+    ],
+    [
+     1668635,
+     "Manufacturer,Model"
+    ],
+    [
+     1668637,
+     "Manufacturer,Model"
+    ],
+    [
+     1668638,
+     "Manufacturer,Model"
+    ],
+    [
+     1668639,
+     "Manufacturer,Model"
+    ],
+    [
+     1668640,
+     "Manufacturer,Model"
+    ],
+    [
+     1668641,
+     "Manufacturer,Model"
+    ],
+    [
+     1668642,
+     "Manufacturer,Model"
+    ],
+    [
+     1668643,
+     "Manufacturer,Model"
+    ],
+    [
+     1668644,
+     "Manufacturer,Model"
+    ],
+    [
+     1668645,
+     "Manufacturer,Model"
+    ],
+    [
+     1668646,
+     "Manufacturer,Model"
+    ],
+    [
+     1668647,
+     "Manufacturer,Model"
+    ],
+    [
+     1668648,
+     "Manufacturer,Model"
+    ],
+    [
+     1668985,
+     "Manufacturer,Model"
+    ],
+    [
+     1669389,
+     "Manufacturer,Model"
+    ],
+    [
+     1695854,
+     "Manufacturer,Model"
+    ],
+    [
+     1695855,
+     "Manufacturer,Model"
+    ],
+    [
+     1696045,
+     "Manufacturer,Model"
+    ],
+    [
+     1696148,
+     "Manufacturer,Model"
+    ],
+    [
+     1696158,
+     "Manufacturer,Model"
+    ],
+    [
+     1696166,
+     "Manufacturer,Model"
+    ],
+    [
+     1921444,
+     "Manufacturer,Model"
+    ],
+    [
+     1921526,
+     "Manufacturer,Model"
+    ],
+    [
+     1963549,
+     "Manufacturer,Model"
+    ],
+    [
+     1963550,
+     "Manufacturer,Model"
+    ],
+    [
+     2050514,
+     "Manufacturer,Model"
+    ],
+    [
+     2050594,
+     "Manufacturer,Model"
+    ],
+    [
+     2050802,
+     "Manufacturer,Model"
+    ],
+    [
+     2050872,
+     "Manufacturer,Model"
+    ],
+    [
+     2051225,
+     "Manufacturer,Model"
+    ],
+    [
+     2051335,
+     "Manufacturer,Model"
+    ],
+    [
+     2051597,
+     "Manufacturer,Model"
+    ],
+    [
+     2051861,
+     "Manufacturer,Model"
+    ],
+    [
+     2051961,
+     "Manufacturer,Model"
+    ],
+    [
+     2052036,
+     "Manufacturer,Model"
+    ],
+    [
+     2052156,
+     "Manufacturer,Model"
+    ],
+    [
+     2052881,
+     "Manufacturer,Model"
+    ],
+    [
+     2053260,
+     "Manufacturer,Model"
+    ],
+    [
+     2053270,
+     "Manufacturer,Model"
+    ],
+    [
+     2053463,
+     "Manufacturer,Model"
+    ],
+    [
+     2053602,
+     "Manufacturer,Model"
+    ],
+    [
+     2053610,
+     "Manufacturer,Model"
+    ],
+    [
+     2053728,
+     "Manufacturer,Model"
+    ],
+    [
+     2053736,
+     "Manufacturer,Model"
+    ],
+    [
+     2053768,
+     "Manufacturer,Model"
+    ],
+    [
+     2053808,
+     "Manufacturer,Model"
+    ],
+    [
+     2053923,
+     "Manufacturer,Model"
+    ],
+    [
+     2054010,
+     "Manufacturer,Model"
+    ],
+    [
+     2054018,
+     "Manufacturer,Model"
+    ],
+    [
+     2082262,
+     "Manufacturer,Model"
+    ],
+    [
+     2082264,
+     "Manufacturer,Model"
+    ],
+    [
+     2082265,
+     "Manufacturer,Model"
+    ],
+    [
+     2082266,
+     "Manufacturer,Model"
+    ],
+    [
+     2083185,
+     "Manufacturer,Model"
+    ],
+    [
+     2083186,
+     "Manufacturer,Model"
+    ],
+    [
+     2083187,
+     "Manufacturer,Model"
+    ],
+    [
+     2083188,
+     "Manufacturer,Model"
+    ],
+    [
+     2083216,
+     "Manufacturer,Model"
+    ],
+    [
+     2083217,
+     "Manufacturer,Model"
+    ],
+    [
+     2083218,
+     "Manufacturer,Model"
+    ],
+    [
+     2083219,
+     "Manufacturer,Model"
+    ],
+    [
+     2083247,
+     "Manufacturer,Model"
+    ],
+    [
+     2083248,
+     "Manufacturer,Model"
+    ],
+    [
+     2083249,
+     "Manufacturer,Model"
+    ],
+    [
+     2083250,
+     "Manufacturer,Model"
+    ],
+    [
+     2083278,
+     "Manufacturer,Model"
+    ],
+    [
+     2083279,
+     "Manufacturer,Model"
+    ],
+    [
+     2083280,
+     "Manufacturer,Model"
+    ],
+    [
+     2083281,
+     "Manufacturer,Model"
+    ],
+    [
+     2083309,
+     "Manufacturer,Model"
+    ],
+    [
+     2083310,
+     "Manufacturer,Model"
+    ],
+    [
+     2083311,
+     "Manufacturer,Model"
+    ],
+    [
+     2083312,
+     "Manufacturer,Model"
+    ],
+    [
+     2083340,
+     "Manufacturer,Model"
+    ],
+    [
+     2083341,
+     "Manufacturer,Model"
+    ],
+    [
+     2083342,
+     "Manufacturer,Model"
+    ],
+    [
+     2083343,
+     "Manufacturer,Model"
+    ],
+    [
+     2088327,
+     "Manufacturer,Model"
+    ],
+    [
+     2088328,
+     "Manufacturer,Model"
+    ],
+    [
+     2088590,
+     "Manufacturer,Model"
+    ],
+    [
+     2088591,
+     "Manufacturer,Model"
+    ],
+    [
+     2090162,
+     "Manufacturer,Model"
+    ],
+    [
+     2090163,
+     "Manufacturer,Model"
+    ],
+    [
+     2090164,
+     "Manufacturer,Model"
+    ],
+    [
+     2090165,
+     "Manufacturer,Model"
+    ],
+    [
+     2091688,
+     "Manufacturer,Model"
+    ],
+    [
+     2091689,
+     "Manufacturer,Model"
+    ],
+    [
+     2091690,
+     "Manufacturer,Model"
+    ],
+    [
+     2091691,
+     "Manufacturer,Model"
+    ],
+    [
+     2091765,
+     "Manufacturer,Model"
+    ],
+    [
+     2091766,
+     "Manufacturer,Model"
+    ],
+    [
+     2091767,
+     "Manufacturer,Model"
+    ],
+    [
+     2091768,
+     "Manufacturer,Model"
+    ],
+    [
+     2091842,
+     "Manufacturer,Model"
+    ],
+    [
+     2091843,
+     "Manufacturer,Model"
+    ],
+    [
+     2091844,
+     "Manufacturer,Model"
+    ],
+    [
+     2091845,
+     "Manufacturer,Model"
+    ],
+    [
+     2092830,
+     "Manufacturer,Model"
+    ],
+    [
+     2092832,
+     "Manufacturer,Model"
+    ],
+    [
+     2092833,
+     "Manufacturer,Model"
+    ],
+    [
+     2092834,
+     "Manufacturer,Model"
+    ],
+    [
+     2092835,
+     "Manufacturer,Model"
+    ],
+    [
+     2092836,
+     "Manufacturer,Model"
+    ],
+    [
+     2095162,
+     "Manufacturer,Model"
+    ],
+    [
+     2095163,
+     "Manufacturer,Model"
+    ],
+    [
+     2095164,
+     "Manufacturer,Model"
+    ],
+    [
+     2095165,
+     "Manufacturer,Model"
+    ],
+    [
+     2095166,
+     "Manufacturer,Model"
+    ],
+    [
+     2095167,
+     "Manufacturer,Model"
+    ],
+    [
+     2095230,
+     "Manufacturer,Model"
+    ],
+    [
+     2095231,
+     "Manufacturer,Model"
+    ],
+    [
+     2095232,
+     "Manufacturer,Model"
+    ],
+    [
+     2095233,
+     "Manufacturer,Model"
+    ],
+    [
+     2095234,
+     "Manufacturer,Model"
+    ],
+    [
+     2095235,
+     "Manufacturer,Model"
+    ],
+    [
+     2095299,
+     "Manufacturer,Model"
+    ],
+    [
+     2095300,
+     "Manufacturer,Model"
+    ],
+    [
+     2095301,
+     "Manufacturer,Model"
+    ],
+    [
+     2095302,
+     "Manufacturer,Model"
+    ],
+    [
+     2095303,
+     "Manufacturer,Model"
+    ],
+    [
+     2095368,
+     "Manufacturer,Model"
+    ],
+    [
+     2095369,
+     "Manufacturer,Model"
+    ],
+    [
+     2095370,
+     "Manufacturer,Model"
+    ],
+    [
+     2095371,
+     "Manufacturer,Model"
+    ],
+    [
+     2095372,
+     "Manufacturer,Model"
+    ],
+    [
+     2096811,
+     "Manufacturer,Model"
+    ],
+    [
+     2097153,
+     "Manufacturer,Model"
+    ],
+    [
+     2097156,
+     "Manufacturer,Model"
+    ],
+    [
+     2097159,
+     "Manufacturer,Model"
+    ],
+    [
+     2097162,
+     "Manufacturer,Model"
+    ],
+    [
+     2098878,
+     "Manufacturer,Model"
+    ],
+    [
+     2098989,
+     "Manufacturer,Model"
+    ],
+    [
+     2098993,
+     "Manufacturer,Model"
+    ],
+    [
+     2098995,
+     "Manufacturer,Model"
+    ],
+    [
+     2098997,
+     "Manufacturer,Model"
+    ],
+    [
+     2099175,
+     "Manufacturer,Model"
+    ],
+    [
+     2099236,
+     "Manufacturer,Model"
+    ],
+    [
+     2099353,
+     "Manufacturer,Model"
+    ],
+    [
+     2099355,
+     "Manufacturer,Model"
+    ],
+    [
+     2099356,
+     "Manufacturer,Model"
+    ],
+    [
+     2099358,
+     "Manufacturer,Model"
+    ],
+    [
+     2099359,
+     "Manufacturer,Model"
+    ],
+    [
+     2099361,
+     "Manufacturer,Model"
+    ],
+    [
+     2099362,
+     "Manufacturer,Model"
+    ],
+    [
+     2099364,
+     "Manufacturer,Model"
+    ],
+    [
+     2099365,
+     "Manufacturer,Model"
+    ],
+    [
+     2099367,
+     "Manufacturer,Model"
+    ],
+    [
+     2099368,
+     "Manufacturer,Model"
+    ],
+    [
+     2099370,
+     "Manufacturer,Model"
+    ],
+    [
+     2099554,
+     "Manufacturer,Model"
+    ],
+    [
+     2099583,
+     "Manufacturer,Model"
+    ],
+    [
+     2099689,
+     "Manufacturer,Model"
+    ],
+    [
+     2099691,
+     "Manufacturer,Model"
+    ],
+    [
+     2099834,
+     "Manufacturer,Model"
+    ],
+    [
+     2099906,
+     "Manufacturer,Model"
+    ],
+    [
+     2100009,
+     "Manufacturer,Model"
+    ],
+    [
+     2100011,
+     "Manufacturer,Model"
+    ],
+    [
+     2100013,
+     "Manufacturer,Model"
+    ],
+    [
+     2100015,
+     "Manufacturer,Model"
+    ],
+    [
+     2100017,
+     "Manufacturer,Model"
+    ],
+    [
+     2100019,
+     "Manufacturer,Model"
+    ],
+    [
+     2100467,
+     "Manufacturer,Model"
+    ],
+    [
+     2100512,
+     "Manufacturer,Model"
+    ],
+    [
+     2101106,
+     "Manufacturer,Model"
+    ],
+    [
+     2101108,
+     "Manufacturer,Model"
+    ],
+    [
+     2101898,
+     "Manufacturer,Model"
+    ],
+    [
+     2101899,
+     "Manufacturer,Model"
+    ],
+    [
+     2101900,
+     "Manufacturer,Model"
+    ],
+    [
+     2101901,
+     "Manufacturer,Model"
+    ],
+    [
+     2102221,
+     "Manufacturer,Model"
+    ],
+    [
+     2102222,
+     "Manufacturer,Model"
+    ],
+    [
+     2102223,
+     "Manufacturer,Model"
+    ],
+    [
+     2102224,
+     "Manufacturer,Model"
+    ],
+    [
+     2103774,
+     "Manufacturer,Model"
+    ],
+    [
+     2103775,
+     "Manufacturer,Model"
+    ],
+    [
+     2103776,
+     "Manufacturer,Model"
+    ],
+    [
+     2103777,
+     "Manufacturer,Model"
+    ],
+    [
+     2104256,
+     "Manufacturer,Model"
+    ],
+    [
+     2104257,
+     "Manufacturer,Model"
+    ],
+    [
+     2104594,
+     "Manufacturer,Model"
+    ],
+    [
+     2104595,
+     "Manufacturer,Model"
+    ],
+    [
+     2104596,
+     "Manufacturer,Model"
+    ],
+    [
+     2269101,
+     "Manufacturer,Model"
+    ],
+    [
+     2269103,
+     "Manufacturer,Model"
+    ],
+    [
+     2296937,
+     "Manufacturer,Model"
+    ],
+    [
+     2296977,
+     "Manufacturer,Model"
+    ],
+    [
+     2297017,
+     "Manufacturer,Model"
+    ],
+    [
+     2297065,
+     "Manufacturer,Model"
+    ]
+   ],
+   "id": "P-04l",
+   "na": true,
+   "name": "Lighting: Manufacturer/Model",
+   "passrate": 0.0,
+   "severity": "info",
+   "src": "COBie Type",
+   "weight": 1
+  },
+  {
+   "cat": "parameters",
+   "fails": [
+    [
+     826376,
+     "Occupancy"
+    ],
+    [
+     826593,
+     "Occupancy"
+    ],
+    [
+     826600,
+     "Occupancy"
+    ],
+    [
+     826702,
+     "Occupancy"
+    ],
+    [
+     826708,
+     "Occupancy"
+    ],
+    [
+     828540,
+     "Occupancy"
+    ],
+    [
+     829648,
+     "Occupancy"
+    ],
+    [
+     829824,
+     "Occupancy"
+    ],
+    [
+     830676,
+     "Occupancy"
+    ],
+    [
+     830834,
+     "Occupancy"
+    ],
+    [
+     830946,
+     "Occupancy"
+    ],
+    [
+     830956,
+     "Occupancy"
+    ],
+    [
+     830963,
+     "Occupancy"
+    ],
+    [
+     830966,
+     "Occupancy"
+    ],
+    [
+     2181766,
+     "Occupancy"
+    ]
+   ],
+   "id": "P-10",
+   "na": false,
+   "name": "Rooms: Name/Number/Occupancy",
+   "passrate": 0.7222222222222222,
+   "severity": "fail",
+   "src": "COBie Space",
+   "weight": 2
+  },
+  {
+   "cat": "parameters",
+   "fails": [],
+   "id": "P-11",
+   "na": false,
+   "name": "Rooms placed and area>0",
+   "passrate": 1.0,
+   "severity": "fail",
+   "src": "COBie Space",
+   "weight": 2
+  },
+  {
+   "cat": "classification",
+   "fails": [],
+   "id": "C-01/Doors",
+   "na": false,
+   "name": "OmniClass (Doors)",
+   "passrate": 1.0,
+   "severity": "fail",
+   "src": "LOD/OC21",
+   "weight": 2
+  },
+  {
+   "cat": "classification",
+   "fails": [
+    [
+     1290306,
+     "no Assembly Code"
+    ],
+    [
+     1290416,
+     "no Assembly Code"
+    ],
+    [
+     1290418,
+     "no Assembly Code"
+    ],
+    [
+     1290420,
+     "no Assembly Code"
+    ],
+    [
+     1433522,
+     "no Assembly Code"
+    ],
+    [
+     1433760,
+     "no Assembly Code"
+    ],
+    [
+     1433766,
+     "no Assembly Code"
+    ],
+    [
+     1921709,
+     "no Assembly Code"
+    ],
+    [
+     2266459,
+     "no Assembly Code"
+    ]
+   ],
+   "id": "C-04/Doors",
+   "na": false,
+   "name": "Uniformat (Doors)",
+   "passrate": 0.9366197183098591,
+   "severity": "warn",
+   "src": "LOD/Uniformat",
+   "weight": 1
+  },
+  {
+   "cat": "classification",
+   "fails": [],
+   "id": "C-01/Windows",
+   "na": false,
+   "name": "OmniClass (Windows)",
+   "passrate": 1.0,
+   "severity": "fail",
+   "src": "LOD/OC21",
+   "weight": 2
+  },
+  {
+   "cat": "classification",
+   "fails": [
+    [
+     1450232,
+     "no Assembly Code"
+    ],
+    [
+     1452001,
+     "no Assembly Code"
+    ],
+    [
+     1452013,
+     "no Assembly Code"
+    ],
+    [
+     1452023,
+     "no Assembly Code"
+    ],
+    [
+     1454224,
+     "no Assembly Code"
+    ],
+    [
+     1454225,
+     "no Assembly Code"
+    ],
+    [
+     1454226,
+     "no Assembly Code"
+    ],
+    [
+     1454227,
+     "no Assembly Code"
+    ],
+    [
+     1454636,
+     "no Assembly Code"
+    ],
+    [
+     1454637,
+     "no Assembly Code"
+    ],
+    [
+     1454638,
+     "no Assembly Code"
+    ],
+    [
+     1454639,
+     "no Assembly Code"
+    ],
+    [
+     1502355,
+     "no Assembly Code"
+    ],
+    [
+     1502356,
+     "no Assembly Code"
+    ],
+    [
+     1502684,
+     "no Assembly Code"
+    ],
+    [
+     1502780,
+     "no Assembly Code"
+    ],
+    [
+     1518159,
+     "no Assembly Code"
+    ],
+    [
+     1524791,
+     "no Assembly Code"
+    ],
+    [
+     1526883,
+     "no Assembly Code"
+    ],
+    [
+     1526891,
+     "no Assembly Code"
+    ],
+    [
+     1526899,
+     "no Assembly Code"
+    ],
+    [
+     1526969,
+     "no Assembly Code"
+    ],
+    [
+     1527324,
+     "no Assembly Code"
+    ],
+    [
+     1527335,
+     "no Assembly Code"
+    ],
+    [
+     1527348,
+     "no Assembly Code"
+    ],
+    [
+     1529119,
+     "no Assembly Code"
+    ],
+    [
+     1529362,
+     "no Assembly Code"
+    ],
+    [
+     1529370,
+     "no Assembly Code"
+    ],
+    [
+     1529378,
+     "no Assembly Code"
+    ],
+    [
+     1529386,
+     "no Assembly Code"
+    ],
+    [
+     1529394,
+     "no Assembly Code"
+    ],
+    [
+     1534320,
+     "no Assembly Code"
+    ],
+    [
+     1534385,
+     "no Assembly Code"
+    ],
+    [
+     1534393,
+     "no Assembly Code"
+    ],
+    [
+     1534401,
+     "no Assembly Code"
+    ],
+    [
+     1534409,
+     "no Assembly Code"
+    ],
+    [
+     1589190,
+     "no Assembly Code"
+    ],
+    [
+     1589899,
+     "no Assembly Code"
+    ]
+   ],
+   "id": "C-04/Windows",
+   "na": false,
+   "name": "Uniformat (Windows)",
+   "passrate": 0.6415094339622642,
+   "severity": "warn",
+   "src": "LOD/Uniformat",
+   "weight": 1
+  },
+  {
+   "cat": "classification",
+   "fails": [
+    [
+     782462,
+     "no OmniClass"
+    ],
+    [
+     785972,
+     "no OmniClass"
+    ],
+    [
+     786336,
+     "no OmniClass"
+    ],
+    [
+     786610,
+     "no OmniClass"
+    ],
+    [
+     787085,
+     "no OmniClass"
+    ],
+    [
+     787134,
+     "no OmniClass"
+    ],
+    [
+     787214,
+     "no OmniClass"
+    ],
+    [
+     787263,
+     "no OmniClass"
+    ],
+    [
+     787312,
+     "no OmniClass"
+    ],
+    [
+     803109,
+     "no OmniClass"
+    ],
+    [
+     809467,
+     "no OmniClass"
+    ],
+    [
+     838008,
+     "no OmniClass"
+    ],
+    [
+     874809,
+     "no OmniClass"
+    ],
+    [
+     906912,
+     "no OmniClass"
+    ],
+    [
+     908391,
+     "no OmniClass"
+    ],
+    [
+     908594,
+     "no OmniClass"
+    ],
+    [
+     908631,
+     "no OmniClass"
+    ],
+    [
+     908762,
+     "no OmniClass"
+    ],
+    [
+     1135932,
+     "no OmniClass"
+    ],
+    [
+     1135933,
+     "no OmniClass"
+    ],
+    [
+     1135957,
+     "no OmniClass"
+    ],
+    [
+     1248519,
+     "no OmniClass"
+    ],
+    [
+     1248928,
+     "no OmniClass"
+    ],
+    [
+     1313020,
+     "no OmniClass"
+    ],
+    [
+     1313077,
+     "no OmniClass"
+    ],
+    [
+     1313134,
+     "no OmniClass"
+    ],
+    [
+     1319092,
+     "no OmniClass"
+    ],
+    [
+     1321729,
+     "no OmniClass"
+    ],
+    [
+     1322104,
+     "no OmniClass"
+    ],
+    [
+     1322139,
+     "no OmniClass"
+    ],
+    [
+     1389106,
+     "no OmniClass"
+    ],
+    [
+     1389111,
+     "no OmniClass"
+    ],
+    [
+     1390776,
+     "no OmniClass"
+    ],
+    [
+     1390781,
+     "no OmniClass"
+    ],
+    [
+     1392648,
+     "no OmniClass"
+    ],
+    [
+     1393513,
+     "no OmniClass"
+    ],
+    [
+     1921148,
+     "no OmniClass"
+    ],
+    [
+     1963543,
+     "no OmniClass"
+    ],
+    [
+     1963546,
+     "no OmniClass"
+    ]
+   ],
+   "id": "C-01/Plumbing",
+   "na": false,
+   "name": "OmniClass (Plumbing)",
+   "passrate": 0.738255033557047,
+   "severity": "fail",
+   "src": "LOD/OC21",
+   "weight": 2
+  },
+  {
+   "cat": "classification",
+   "fails": [
+    [
+     763179,
+     "no Assembly Code"
+    ],
+    [
+     785956,
+     "no Assembly Code"
+    ],
+    [
+     786320,
+     "no Assembly Code"
+    ],
+    [
+     786594,
+     "no Assembly Code"
+    ],
+    [
+     787069,
+     "no Assembly Code"
+    ],
+    [
+     787118,
+     "no Assembly Code"
+    ],
+    [
+     787198,
+     "no Assembly Code"
+    ],
+    [
+     787247,
+     "no Assembly Code"
+    ],
+    [
+     787296,
+     "no Assembly Code"
+    ],
+    [
+     800258,
+     "no Assembly Code"
+    ],
+    [
+     809638,
+     "no Assembly Code"
+    ],
+    [
+     837992,
+     "no Assembly Code"
+    ],
+    [
+     906901,
+     "no Assembly Code"
+    ],
+    [
+     908380,
+     "no Assembly Code"
+    ],
+    [
+     908583,
+     "no Assembly Code"
+    ],
+    [
+     908620,
+     "no Assembly Code"
+    ],
+    [
+     908751,
+     "no Assembly Code"
+    ],
+    [
+     1135948,
+     "no Assembly Code"
+    ],
+    [
+     1135956,
+     "no Assembly Code"
+    ],
+    [
+     1135957,
+     "no Assembly Code"
+    ],
+    [
+     1135972,
+     "no Assembly Code"
+    ],
+    [
+     1135973,
+     "no Assembly Code"
+    ],
+    [
+     1135974,
+     "no Assembly Code"
+    ],
+    [
+     1313009,
+     "no Assembly Code"
+    ],
+    [
+     1313066,
+     "no Assembly Code"
+    ],
+    [
+     1313123,
+     "no Assembly Code"
+    ],
+    [
+     1319096,
+     "no Assembly Code"
+    ]
+   ],
+   "id": "C-04/Plumbing",
+   "na": false,
+   "name": "Uniformat (Plumbing)",
+   "passrate": 0.8187919463087249,
+   "severity": "warn",
+   "src": "LOD/Uniformat",
+   "weight": 1
+  },
+  {
+   "cat": "classification",
+   "fails": [
+    [
+     1455355,
+     "no OmniClass"
+    ],
+    [
+     1455357,
+     "no OmniClass"
+    ],
+    [
+     1455358,
+     "no OmniClass"
+    ],
+    [
+     1455359,
+     "no OmniClass"
+    ],
+    [
+     1455360,
+     "no OmniClass"
+    ],
+    [
+     1455361,
+     "no OmniClass"
+    ],
+    [
+     1455362,
+     "no OmniClass"
+    ],
+    [
+     1455363,
+     "no OmniClass"
+    ],
+    [
+     1455484,
+     "no OmniClass"
+    ],
+    [
+     1455486,
+     "no OmniClass"
+    ],
+    [
+     1455487,
+     "no OmniClass"
+    ],
+    [
+     1455488,
+     "no OmniClass"
+    ],
+    [
+     1455489,
+     "no OmniClass"
+    ],
+    [
+     1455490,
+     "no OmniClass"
+    ],
+    [
+     1455491,
+     "no OmniClass"
+    ],
+    [
+     1455492,
+     "no OmniClass"
+    ],
+    [
+     1455640,
+     "no OmniClass"
+    ],
+    [
+     1455642,
+     "no OmniClass"
+    ],
+    [
+     1455643,
+     "no OmniClass"
+    ],
+    [
+     1455644,
+     "no OmniClass"
+    ],
+    [
+     1455645,
+     "no OmniClass"
+    ],
+    [
+     1455646,
+     "no OmniClass"
+    ],
+    [
+     1455647,
+     "no OmniClass"
+    ],
+    [
+     1455648,
+     "no OmniClass"
+    ],
+    [
+     1567430,
+     "no OmniClass"
+    ],
+    [
+     1567544,
+     "no OmniClass"
+    ],
+    [
+     1567552,
+     "no OmniClass"
+    ],
+    [
+     1567564,
+     "no OmniClass"
+    ],
+    [
+     1567609,
+     "no OmniClass"
+    ],
+    [
+     1567671,
+     "no OmniClass"
+    ],
+    [
+     1567716,
+     "no OmniClass"
+    ],
+    [
+     1567771,
+     "no OmniClass"
+    ],
+    [
+     1567815,
+     "no OmniClass"
+    ],
+    [
+     1567817,
+     "no OmniClass"
+    ],
+    [
+     1567915,
+     "no OmniClass"
+    ],
+    [
+     1567923,
+     "no OmniClass"
+    ],
+    [
+     1568071,
+     "no OmniClass"
+    ],
+    [
+     1568073,
+     "no OmniClass"
+    ],
+    [
+     1568074,
+     "no OmniClass"
+    ],
+    [
+     1569202,
+     "no OmniClass"
+    ],
+    [
+     1569203,
+     "no OmniClass"
+    ],
+    [
+     1569204,
+     "no OmniClass"
+    ],
+    [
+     1569205,
+     "no OmniClass"
+    ],
+    [
+     1569206,
+     "no OmniClass"
+    ],
+    [
+     1569207,
+     "no OmniClass"
+    ],
+    [
+     1569208,
+     "no OmniClass"
+    ],
+    [
+     1569209,
+     "no OmniClass"
+    ],
+    [
+     1576125,
+     "no OmniClass"
+    ],
+    [
+     1576126,
+     "no OmniClass"
+    ],
+    [
+     1576301,
+     "no OmniClass"
+    ],
+    [
+     1576789,
+     "no OmniClass"
+    ],
+    [
+     1576790,
+     "no OmniClass"
+    ],
+    [
+     1576791,
+     "no OmniClass"
+    ],
+    [
+     1576792,
+     "no OmniClass"
+    ],
+    [
+     1576793,
+     "no OmniClass"
+    ],
+    [
+     1576794,
+     "no OmniClass"
+    ],
+    [
+     1576795,
+     "no OmniClass"
+    ],
+    [
+     1576796,
+     "no OmniClass"
+    ],
+    [
+     1576797,
+     "no OmniClass"
+    ],
+    [
+     1576798,
+     "no OmniClass"
+    ],
+    [
+     1576799,
+     "no OmniClass"
+    ],
+    [
+     1577057,
+     "no OmniClass"
+    ],
+    [
+     1577058,
+     "no OmniClass"
+    ],
+    [
+     1577059,
+     "no OmniClass"
+    ],
+    [
+     1577060,
+     "no OmniClass"
+    ],
+    [
+     1577061,
+     "no OmniClass"
+    ],
+    [
+     1577062,
+     "no OmniClass"
+    ],
+    [
+     1577063,
+     "no OmniClass"
+    ],
+    [
+     1577064,
+     "no OmniClass"
+    ],
+    [
+     1577065,
+     "no OmniClass"
+    ],
+    [
+     1577066,
+     "no OmniClass"
+    ],
+    [
+     1577067,
+     "no OmniClass"
+    ],
+    [
+     1577068,
+     "no OmniClass"
+    ],
+    [
+     1577069,
+     "no OmniClass"
+    ],
+    [
+     1577070,
+     "no OmniClass"
+    ],
+    [
+     1577151,
+     "no OmniClass"
+    ],
+    [
+     1577152,
+     "no OmniClass"
+    ],
+    [
+     1577153,
+     "no OmniClass"
+    ],
+    [
+     1577154,
+     "no OmniClass"
+    ],
+    [
+     1577155,
+     "no OmniClass"
+    ],
+    [
+     1577156,
+     "no OmniClass"
+    ],
+    [
+     1577157,
+     "no OmniClass"
+    ],
+    [
+     1577158,
+     "no OmniClass"
+    ],
+    [
+     1577159,
+     "no OmniClass"
+    ],
+    [
+     1577160,
+     "no OmniClass"
+    ],
+    [
+     1577161,
+     "no OmniClass"
+    ],
+    [
+     1612603,
+     "no OmniClass"
+    ]
+   ],
+   "id": "C-01/Lighting",
+   "na": false,
+   "name": "OmniClass (Lighting)",
+   "passrate": 0.8053691275167785,
+   "severity": "fail",
+   "src": "LOD/OC21",
+   "weight": 2
+  },
+  {
+   "cat": "classification",
+   "fails": [
+    [
+     1455355,
+     "no Assembly Code"
+    ],
+    [
+     1455357,
+     "no Assembly Code"
+    ],
+    [
+     1455358,
+     "no Assembly Code"
+    ],
+    [
+     1455359,
+     "no Assembly Code"
+    ],
+    [
+     1455360,
+     "no Assembly Code"
+    ],
+    [
+     1455361,
+     "no Assembly Code"
+    ],
+    [
+     1455362,
+     "no Assembly Code"
+    ],
+    [
+     1455363,
+     "no Assembly Code"
+    ],
+    [
+     1455484,
+     "no Assembly Code"
+    ],
+    [
+     1455486,
+     "no Assembly Code"
+    ],
+    [
+     1455487,
+     "no Assembly Code"
+    ],
+    [
+     1455488,
+     "no Assembly Code"
+    ],
+    [
+     1455489,
+     "no Assembly Code"
+    ],
+    [
+     1455490,
+     "no Assembly Code"
+    ],
+    [
+     1455491,
+     "no Assembly Code"
+    ],
+    [
+     1455492,
+     "no Assembly Code"
+    ],
+    [
+     1455640,
+     "no Assembly Code"
+    ],
+    [
+     1455642,
+     "no Assembly Code"
+    ],
+    [
+     1455643,
+     "no Assembly Code"
+    ],
+    [
+     1455644,
+     "no Assembly Code"
+    ],
+    [
+     1455645,
+     "no Assembly Code"
+    ],
+    [
+     1455646,
+     "no Assembly Code"
+    ],
+    [
+     1455647,
+     "no Assembly Code"
+    ],
+    [
+     1455648,
+     "no Assembly Code"
+    ],
+    [
+     1566270,
+     "no Assembly Code"
+    ],
+    [
+     1566353,
+     "no Assembly Code"
+    ],
+    [
+     1566455,
+     "no Assembly Code"
+    ],
+    [
+     1566508,
+     "no Assembly Code"
+    ],
+    [
+     1567230,
+     "no Assembly Code"
+    ],
+    [
+     1567430,
+     "no Assembly Code"
+    ],
+    [
+     1567544,
+     "no Assembly Code"
+    ],
+    [
+     1567552,
+     "no Assembly Code"
+    ],
+    [
+     1567564,
+     "no Assembly Code"
+    ],
+    [
+     1567609,
+     "no Assembly Code"
+    ],
+    [
+     1567671,
+     "no Assembly Code"
+    ],
+    [
+     1567716,
+     "no Assembly Code"
+    ],
+    [
+     1567771,
+     "no Assembly Code"
+    ],
+    [
+     1567815,
+     "no Assembly Code"
+    ],
+    [
+     1567817,
+     "no Assembly Code"
+    ],
+    [
+     1567915,
+     "no Assembly Code"
+    ],
+    [
+     1567923,
+     "no Assembly Code"
+    ],
+    [
+     1568071,
+     "no Assembly Code"
+    ],
+    [
+     1568073,
+     "no Assembly Code"
+    ],
+    [
+     1568074,
+     "no Assembly Code"
+    ],
+    [
+     1569202,
+     "no Assembly Code"
+    ],
+    [
+     1569203,
+     "no Assembly Code"
+    ],
+    [
+     1569204,
+     "no Assembly Code"
+    ],
+    [
+     1569205,
+     "no Assembly Code"
+    ],
+    [
+     1569206,
+     "no Assembly Code"
+    ],
+    [
+     1569207,
+     "no Assembly Code"
+    ],
+    [
+     1569208,
+     "no Assembly Code"
+    ],
+    [
+     1569209,
+     "no Assembly Code"
+    ],
+    [
+     1569672,
+     "no Assembly Code"
+    ],
+    [
+     1569673,
+     "no Assembly Code"
+    ],
+    [
+     1570064,
+     "no Assembly Code"
+    ],
+    [
+     1570065,
+     "no Assembly Code"
+    ],
+    [
+     1570089,
+     "no Assembly Code"
+    ],
+    [
+     1570090,
+     "no Assembly Code"
+    ],
+    [
+     1570114,
+     "no Assembly Code"
+    ],
+    [
+     1570115,
+     "no Assembly Code"
+    ],
+    [
+     1576125,
+     "no Assembly Code"
+    ],
+    [
+     1576126,
+     "no Assembly Code"
+    ],
+    [
+     1576301,
+     "no Assembly Code"
+    ],
+    [
+     1576789,
+     "no Assembly Code"
+    ],
+    [
+     1576790,
+     "no Assembly Code"
+    ],
+    [
+     1576791,
+     "no Assembly Code"
+    ],
+    [
+     1576792,
+     "no Assembly Code"
+    ],
+    [
+     1576793,
+     "no Assembly Code"
+    ],
+    [
+     1576794,
+     "no Assembly Code"
+    ],
+    [
+     1576795,
+     "no Assembly Code"
+    ],
+    [
+     1576796,
+     "no Assembly Code"
+    ],
+    [
+     1576797,
+     "no Assembly Code"
+    ],
+    [
+     1576798,
+     "no Assembly Code"
+    ],
+    [
+     1576799,
+     "no Assembly Code"
+    ],
+    [
+     1577057,
+     "no Assembly Code"
+    ],
+    [
+     1577058,
+     "no Assembly Code"
+    ],
+    [
+     1577059,
+     "no Assembly Code"
+    ],
+    [
+     1577060,
+     "no Assembly Code"
+    ],
+    [
+     1577061,
+     "no Assembly Code"
+    ],
+    [
+     1577062,
+     "no Assembly Code"
+    ],
+    [
+     1577063,
+     "no Assembly Code"
+    ],
+    [
+     1577064,
+     "no Assembly Code"
+    ],
+    [
+     1577065,
+     "no Assembly Code"
+    ],
+    [
+     1577066,
+     "no Assembly Code"
+    ],
+    [
+     1577067,
+     "no Assembly Code"
+    ],
+    [
+     1577068,
+     "no Assembly Code"
+    ],
+    [
+     1577069,
+     "no Assembly Code"
+    ],
+    [
+     1577070,
+     "no Assembly Code"
+    ],
+    [
+     1577151,
+     "no Assembly Code"
+    ],
+    [
+     1577152,
+     "no Assembly Code"
+    ],
+    [
+     1577153,
+     "no Assembly Code"
+    ],
+    [
+     1577154,
+     "no Assembly Code"
+    ],
+    [
+     1577155,
+     "no Assembly Code"
+    ],
+    [
+     1577156,
+     "no Assembly Code"
+    ],
+    [
+     1577157,
+     "no Assembly Code"
+    ],
+    [
+     1577158,
+     "no Assembly Code"
+    ],
+    [
+     1577159,
+     "no Assembly Code"
+    ],
+    [
+     1577160,
+     "no Assembly Code"
+    ],
+    [
+     1577161,
+     "no Assembly Code"
+    ],
+    [
+     1580462,
+     "no Assembly Code"
+    ],
+    [
+     1582115,
+     "no Assembly Code"
+    ],
+    [
+     1582135,
+     "no Assembly Code"
+    ],
+    [
+     1582513,
+     "no Assembly Code"
+    ],
+    [
+     1582514,
+     "no Assembly Code"
+    ],
+    [
+     1582744,
+     "no Assembly Code"
+    ],
+    [
+     1582745,
+     "no Assembly Code"
+    ],
+    [
+     1582948,
+     "no Assembly Code"
+    ],
+    [
+     1582949,
+     "no Assembly Code"
+    ],
+    [
+     1583125,
+     "no Assembly Code"
+    ],
+    [
+     1583126,
+     "no Assembly Code"
+    ],
+    [
+     1601040,
+     "no Assembly Code"
+    ],
+    [
+     1601042,
+     "no Assembly Code"
+    ],
+    [
+     1601044,
+     "no Assembly Code"
+    ],
+    [
+     1601046,
+     "no Assembly Code"
+    ],
+    [
+     1601267,
+     "no Assembly Code"
+    ],
+    [
+     1601366,
+     "no Assembly Code"
+    ],
+    [
+     1601457,
+     "no Assembly Code"
+    ],
+    [
+     1601790,
+     "no Assembly Code"
+    ],
+    [
+     1612603,
+     "no Assembly Code"
+    ],
+    [
+     1612604,
+     "no Assembly Code"
+    ],
+    [
+     1612605,
+     "no Assembly Code"
+    ],
+    [
+     1612606,
+     "no Assembly Code"
+    ],
+    [
+     1612607,
+     "no Assembly Code"
+    ],
+    [
+     1612608,
+     "no Assembly Code"
+    ],
+    [
+     1612609,
+     "no Assembly Code"
+    ],
+    [
+     1612610,
+     "no Assembly Code"
+    ],
+    [
+     1612611,
+     "no Assembly Code"
+    ],
+    [
+     1612612,
+     "no Assembly Code"
+    ],
+    [
+     1612613,
+     "no Assembly Code"
+    ],
+    [
+     1612614,
+     "no Assembly Code"
+    ],
+    [
+     1612615,
+     "no Assembly Code"
+    ],
+    [
+     1612616,
+     "no Assembly Code"
+    ],
+    [
+     1612617,
+     "no Assembly Code"
+    ],
+    [
+     1612618,
+     "no Assembly Code"
+    ],
+    [
+     1612619,
+     "no Assembly Code"
+    ],
+    [
+     1921444,
+     "no Assembly Code"
+    ],
+    [
+     1921526,
+     "no Assembly Code"
+    ],
+    [
+     1963549,
+     "no Assembly Code"
+    ],
+    [
+     1963550,
+     "no Assembly Code"
+    ],
+    [
+     2052881,
+     "no Assembly Code"
+    ],
+    [
+     2053260,
+     "no Assembly Code"
+    ],
+    [
+     2053270,
+     "no Assembly Code"
+    ],
+    [
+     2053463,
+     "no Assembly Code"
+    ],
+    [
+     2053602,
+     "no Assembly Code"
+    ],
+    [
+     2053610,
+     "no Assembly Code"
+    ],
+    [
+     2053728,
+     "no Assembly Code"
+    ],
+    [
+     2053736,
+     "no Assembly Code"
+    ],
+    [
+     2053768,
+     "no Assembly Code"
+    ],
+    [
+     2053808,
+     "no Assembly Code"
+    ],
+    [
+     2053923,
+     "no Assembly Code"
+    ],
+    [
+     2054010,
+     "no Assembly Code"
+    ],
+    [
+     2054018,
+     "no Assembly Code"
+    ],
+    [
+     2082262,
+     "no Assembly Code"
+    ],
+    [
+     2082264,
+     "no Assembly Code"
+    ],
+    [
+     2082265,
+     "no Assembly Code"
+    ],
+    [
+     2082266,
+     "no Assembly Code"
+    ],
+    [
+     2083185,
+     "no Assembly Code"
+    ],
+    [
+     2083186,
+     "no Assembly Code"
+    ],
+    [
+     2083187,
+     "no Assembly Code"
+    ],
+    [
+     2083188,
+     "no Assembly Code"
+    ],
+    [
+     2083216,
+     "no Assembly Code"
+    ],
+    [
+     2083217,
+     "no Assembly Code"
+    ],
+    [
+     2083218,
+     "no Assembly Code"
+    ],
+    [
+     2083219,
+     "no Assembly Code"
+    ],
+    [
+     2083247,
+     "no Assembly Code"
+    ],
+    [
+     2083248,
+     "no Assembly Code"
+    ],
+    [
+     2083249,
+     "no Assembly Code"
+    ],
+    [
+     2083250,
+     "no Assembly Code"
+    ],
+    [
+     2083278,
+     "no Assembly Code"
+    ],
+    [
+     2083279,
+     "no Assembly Code"
+    ],
+    [
+     2083280,
+     "no Assembly Code"
+    ],
+    [
+     2083281,
+     "no Assembly Code"
+    ],
+    [
+     2083309,
+     "no Assembly Code"
+    ],
+    [
+     2083310,
+     "no Assembly Code"
+    ],
+    [
+     2083311,
+     "no Assembly Code"
+    ],
+    [
+     2083312,
+     "no Assembly Code"
+    ],
+    [
+     2083340,
+     "no Assembly Code"
+    ],
+    [
+     2083341,
+     "no Assembly Code"
+    ],
+    [
+     2083342,
+     "no Assembly Code"
+    ],
+    [
+     2083343,
+     "no Assembly Code"
+    ],
+    [
+     2088327,
+     "no Assembly Code"
+    ],
+    [
+     2088328,
+     "no Assembly Code"
+    ],
+    [
+     2088590,
+     "no Assembly Code"
+    ],
+    [
+     2088591,
+     "no Assembly Code"
+    ],
+    [
+     2090162,
+     "no Assembly Code"
+    ],
+    [
+     2090163,
+     "no Assembly Code"
+    ],
+    [
+     2090164,
+     "no Assembly Code"
+    ],
+    [
+     2090165,
+     "no Assembly Code"
+    ],
+    [
+     2091688,
+     "no Assembly Code"
+    ],
+    [
+     2091689,
+     "no Assembly Code"
+    ],
+    [
+     2091690,
+     "no Assembly Code"
+    ],
+    [
+     2091691,
+     "no Assembly Code"
+    ],
+    [
+     2091765,
+     "no Assembly Code"
+    ],
+    [
+     2091766,
+     "no Assembly Code"
+    ],
+    [
+     2091767,
+     "no Assembly Code"
+    ],
+    [
+     2091768,
+     "no Assembly Code"
+    ],
+    [
+     2091842,
+     "no Assembly Code"
+    ],
+    [
+     2091843,
+     "no Assembly Code"
+    ],
+    [
+     2091844,
+     "no Assembly Code"
+    ],
+    [
+     2091845,
+     "no Assembly Code"
+    ],
+    [
+     2092830,
+     "no Assembly Code"
+    ],
+    [
+     2092832,
+     "no Assembly Code"
+    ],
+    [
+     2092833,
+     "no Assembly Code"
+    ],
+    [
+     2092834,
+     "no Assembly Code"
+    ],
+    [
+     2092835,
+     "no Assembly Code"
+    ],
+    [
+     2092836,
+     "no Assembly Code"
+    ],
+    [
+     2095162,
+     "no Assembly Code"
+    ],
+    [
+     2095163,
+     "no Assembly Code"
+    ],
+    [
+     2095164,
+     "no Assembly Code"
+    ],
+    [
+     2095165,
+     "no Assembly Code"
+    ],
+    [
+     2095166,
+     "no Assembly Code"
+    ],
+    [
+     2095167,
+     "no Assembly Code"
+    ],
+    [
+     2095230,
+     "no Assembly Code"
+    ],
+    [
+     2095231,
+     "no Assembly Code"
+    ],
+    [
+     2095232,
+     "no Assembly Code"
+    ],
+    [
+     2095233,
+     "no Assembly Code"
+    ],
+    [
+     2095234,
+     "no Assembly Code"
+    ],
+    [
+     2095235,
+     "no Assembly Code"
+    ],
+    [
+     2095299,
+     "no Assembly Code"
+    ],
+    [
+     2095300,
+     "no Assembly Code"
+    ],
+    [
+     2095301,
+     "no Assembly Code"
+    ],
+    [
+     2095302,
+     "no Assembly Code"
+    ],
+    [
+     2095303,
+     "no Assembly Code"
+    ],
+    [
+     2095368,
+     "no Assembly Code"
+    ],
+    [
+     2095369,
+     "no Assembly Code"
+    ],
+    [
+     2095370,
+     "no Assembly Code"
+    ],
+    [
+     2095371,
+     "no Assembly Code"
+    ],
+    [
+     2095372,
+     "no Assembly Code"
+    ],
+    [
+     2096811,
+     "no Assembly Code"
+    ],
+    [
+     2097153,
+     "no Assembly Code"
+    ],
+    [
+     2097156,
+     "no Assembly Code"
+    ],
+    [
+     2097159,
+     "no Assembly Code"
+    ],
+    [
+     2097162,
+     "no Assembly Code"
+    ],
+    [
+     2098878,
+     "no Assembly Code"
+    ],
+    [
+     2098989,
+     "no Assembly Code"
+    ],
+    [
+     2098993,
+     "no Assembly Code"
+    ],
+    [
+     2098995,
+     "no Assembly Code"
+    ],
+    [
+     2098997,
+     "no Assembly Code"
+    ],
+    [
+     2099175,
+     "no Assembly Code"
+    ],
+    [
+     2099236,
+     "no Assembly Code"
+    ],
+    [
+     2099353,
+     "no Assembly Code"
+    ],
+    [
+     2099355,
+     "no Assembly Code"
+    ],
+    [
+     2099356,
+     "no Assembly Code"
+    ],
+    [
+     2099358,
+     "no Assembly Code"
+    ],
+    [
+     2099359,
+     "no Assembly Code"
+    ],
+    [
+     2099361,
+     "no Assembly Code"
+    ],
+    [
+     2099362,
+     "no Assembly Code"
+    ],
+    [
+     2099364,
+     "no Assembly Code"
+    ],
+    [
+     2099365,
+     "no Assembly Code"
+    ],
+    [
+     2099367,
+     "no Assembly Code"
+    ],
+    [
+     2099368,
+     "no Assembly Code"
+    ],
+    [
+     2099370,
+     "no Assembly Code"
+    ],
+    [
+     2099554,
+     "no Assembly Code"
+    ],
+    [
+     2099583,
+     "no Assembly Code"
+    ],
+    [
+     2099689,
+     "no Assembly Code"
+    ],
+    [
+     2099691,
+     "no Assembly Code"
+    ],
+    [
+     2099834,
+     "no Assembly Code"
+    ],
+    [
+     2099906,
+     "no Assembly Code"
+    ],
+    [
+     2100009,
+     "no Assembly Code"
+    ],
+    [
+     2100011,
+     "no Assembly Code"
+    ],
+    [
+     2100013,
+     "no Assembly Code"
+    ],
+    [
+     2100015,
+     "no Assembly Code"
+    ],
+    [
+     2100017,
+     "no Assembly Code"
+    ],
+    [
+     2100019,
+     "no Assembly Code"
+    ],
+    [
+     2100467,
+     "no Assembly Code"
+    ],
+    [
+     2100512,
+     "no Assembly Code"
+    ],
+    [
+     2101106,
+     "no Assembly Code"
+    ],
+    [
+     2101108,
+     "no Assembly Code"
+    ],
+    [
+     2101898,
+     "no Assembly Code"
+    ],
+    [
+     2101899,
+     "no Assembly Code"
+    ],
+    [
+     2101900,
+     "no Assembly Code"
+    ],
+    [
+     2101901,
+     "no Assembly Code"
+    ],
+    [
+     2102221,
+     "no Assembly Code"
+    ],
+    [
+     2102222,
+     "no Assembly Code"
+    ],
+    [
+     2102223,
+     "no Assembly Code"
+    ],
+    [
+     2102224,
+     "no Assembly Code"
+    ],
+    [
+     2103774,
+     "no Assembly Code"
+    ],
+    [
+     2103775,
+     "no Assembly Code"
+    ],
+    [
+     2103776,
+     "no Assembly Code"
+    ],
+    [
+     2103777,
+     "no Assembly Code"
+    ],
+    [
+     2104256,
+     "no Assembly Code"
+    ],
+    [
+     2104257,
+     "no Assembly Code"
+    ],
+    [
+     2269101,
+     "no Assembly Code"
+    ],
+    [
+     2269103,
+     "no Assembly Code"
+    ],
+    [
+     2296937,
+     "no Assembly Code"
+    ],
+    [
+     2296977,
+     "no Assembly Code"
+    ],
+    [
+     2297017,
+     "no Assembly Code"
+    ],
+    [
+     2297065,
+     "no Assembly Code"
+    ]
+   ],
+   "id": "C-04/Lighting",
+   "na": false,
+   "name": "Uniformat (Lighting)",
+   "passrate": 0.3557046979865772,
+   "severity": "warn",
+   "src": "LOD/Uniformat",
+   "weight": 1
+  },
+  {
+   "cat": "classification",
+   "fails": [
+    [
+     738551,
+     "no OmniClass"
+    ],
+    [
+     738552,
+     "no OmniClass"
+    ],
+    [
+     738553,
+     "no OmniClass"
+    ],
+    [
+     738554,
+     "no OmniClass"
+    ],
+    [
+     738616,
+     "no OmniClass"
+    ],
+    [
+     738617,
+     "no OmniClass"
+    ],
+    [
+     738618,
+     "no OmniClass"
+    ],
+    [
+     738619,
+     "no OmniClass"
+    ],
+    [
+     738671,
+     "no OmniClass"
+    ],
+    [
+     738672,
+     "no OmniClass"
+    ],
+    [
+     738673,
+     "no OmniClass"
+    ],
+    [
+     738674,
+     "no OmniClass"
+    ],
+    [
+     738714,
+     "no OmniClass"
+    ],
+    [
+     738715,
+     "no OmniClass"
+    ],
+    [
+     738716,
+     "no OmniClass"
+    ],
+    [
+     738717,
+     "no OmniClass"
+    ],
+    [
+     738763,
+     "no OmniClass"
+    ],
+    [
+     738764,
+     "no OmniClass"
+    ],
+    [
+     738765,
+     "no OmniClass"
+    ],
+    [
+     738766,
+     "no OmniClass"
+    ],
+    [
+     1100082,
+     "no OmniClass"
+    ],
+    [
+     1103368,
+     "no OmniClass"
+    ],
+    [
+     1103378,
+     "no OmniClass"
+    ],
+    [
+     1103402,
+     "no OmniClass"
+    ],
+    [
+     1103501,
+     "no OmniClass"
+    ],
+    [
+     1262871,
+     "no OmniClass"
+    ],
+    [
+     1263067,
+     "no OmniClass"
+    ],
+    [
+     1263462,
+     "no OmniClass"
+    ],
+    [
+     1263464,
+     "no OmniClass"
+    ],
+    [
+     1266477,
+     "no OmniClass"
+    ],
+    [
+     1266478,
+     "no OmniClass"
+    ],
+    [
+     1266480,
+     "no OmniClass"
+    ],
+    [
+     1266850,
+     "no OmniClass"
+    ],
+    [
+     1378483,
+     "no OmniClass"
+    ],
+    [
+     1378484,
+     "no OmniClass"
+    ],
+    [
+     1378485,
+     "no OmniClass"
+    ],
+    [
+     1378486,
+     "no OmniClass"
+    ],
+    [
+     1378487,
+     "no OmniClass"
+    ],
+    [
+     1378488,
+     "no OmniClass"
+    ],
+    [
+     1378612,
+     "no OmniClass"
+    ],
+    [
+     1378613,
+     "no OmniClass"
+    ],
+    [
+     1378614,
+     "no OmniClass"
+    ],
+    [
+     1378615,
+     "no OmniClass"
+    ],
+    [
+     1378616,
+     "no OmniClass"
+    ],
+    [
+     1378617,
+     "no OmniClass"
+    ],
+    [
+     1378675,
+     "no OmniClass"
+    ],
+    [
+     1378676,
+     "no OmniClass"
+    ],
+    [
+     1378677,
+     "no OmniClass"
+    ],
+    [
+     1378678,
+     "no OmniClass"
+    ],
+    [
+     1378679,
+     "no OmniClass"
+    ],
+    [
+     1378680,
+     "no OmniClass"
+    ],
+    [
+     1379088,
+     "no OmniClass"
+    ],
+    [
+     1379089,
+     "no OmniClass"
+    ],
+    [
+     1379090,
+     "no OmniClass"
+    ],
+    [
+     1379091,
+     "no OmniClass"
+    ],
+    [
+     1379104,
+     "no OmniClass"
+    ],
+    [
+     1379105,
+     "no OmniClass"
+    ],
+    [
+     1379106,
+     "no OmniClass"
+    ],
+    [
+     1379107,
+     "no OmniClass"
+    ],
+    [
+     1379120,
+     "no OmniClass"
+    ],
+    [
+     1379121,
+     "no OmniClass"
+    ],
+    [
+     1379122,
+     "no OmniClass"
+    ],
+    [
+     1379123,
+     "no OmniClass"
+    ],
+    [
+     1379136,
+     "no OmniClass"
+    ],
+    [
+     1379137,
+     "no OmniClass"
+    ],
+    [
+     1379138,
+     "no OmniClass"
+    ],
+    [
+     1379139,
+     "no OmniClass"
+    ],
+    [
+     1379153,
+     "no OmniClass"
+    ],
+    [
+     1379154,
+     "no OmniClass"
+    ],
+    [
+     1379155,
+     "no OmniClass"
+    ],
+    [
+     1379156,
+     "no OmniClass"
+    ],
+    [
+     1406652,
+     "no OmniClass"
+    ],
+    [
+     1701124,
+     "no OmniClass"
+    ],
+    [
+     1701125,
+     "no OmniClass"
+    ],
+    [
+     1701126,
+     "no OmniClass"
+    ],
+    [
+     1701127,
+     "no OmniClass"
+    ],
+    [
+     1701129,
+     "no OmniClass"
+    ],
+    [
+     1701130,
+     "no OmniClass"
+    ],
+    [
+     1701131,
+     "no OmniClass"
+    ],
+    [
+     1701132,
+     "no OmniClass"
+    ],
+    [
+     1701134,
+     "no OmniClass"
+    ],
+    [
+     1701135,
+     "no OmniClass"
+    ],
+    [
+     1701136,
+     "no OmniClass"
+    ],
+    [
+     1701137,
+     "no OmniClass"
+    ],
+    [
+     1701139,
+     "no OmniClass"
+    ],
+    [
+     1701140,
+     "no OmniClass"
+    ],
+    [
+     1701141,
+     "no OmniClass"
+    ],
+    [
+     1701142,
+     "no OmniClass"
+    ],
+    [
+     1701144,
+     "no OmniClass"
+    ],
+    [
+     1701145,
+     "no OmniClass"
+    ],
+    [
+     1701146,
+     "no OmniClass"
+    ],
+    [
+     1701147,
+     "no OmniClass"
+    ],
+    [
+     1701178,
+     "no OmniClass"
+    ],
+    [
+     1701179,
+     "no OmniClass"
+    ],
+    [
+     1701180,
+     "no OmniClass"
+    ],
+    [
+     1701181,
+     "no OmniClass"
+    ],
+    [
+     1701183,
+     "no OmniClass"
+    ],
+    [
+     1701184,
+     "no OmniClass"
+    ],
+    [
+     1701185,
+     "no OmniClass"
+    ],
+    [
+     1701186,
+     "no OmniClass"
+    ],
+    [
+     1701193,
+     "no OmniClass"
+    ],
+    [
+     1701194,
+     "no OmniClass"
+    ],
+    [
+     1701195,
+     "no OmniClass"
+    ],
+    [
+     1701196,
+     "no OmniClass"
+    ],
+    [
+     1701198,
+     "no OmniClass"
+    ],
+    [
+     1701199,
+     "no OmniClass"
+    ],
+    [
+     1701200,
+     "no OmniClass"
+    ],
+    [
+     1701201,
+     "no OmniClass"
+    ],
+    [
+     1701296,
+     "no OmniClass"
+    ],
+    [
+     1701297,
+     "no OmniClass"
+    ],
+    [
+     1701298,
+     "no OmniClass"
+    ],
+    [
+     1701299,
+     "no OmniClass"
+    ],
+    [
+     1701300,
+     "no OmniClass"
+    ],
+    [
+     1701301,
+     "no OmniClass"
+    ],
+    [
+     1701302,
+     "no OmniClass"
+    ],
+    [
+     1701303,
+     "no OmniClass"
+    ],
+    [
+     2110101,
+     "no OmniClass"
+    ],
+    [
+     2110239,
+     "no OmniClass"
+    ],
+    [
+     2110417,
+     "no OmniClass"
+    ]
+   ],
+   "id": "C-01/Furniture",
+   "na": false,
+   "name": "OmniClass (Furniture)",
+   "passrate": 0.29166666666666663,
+   "severity": "fail",
+   "src": "LOD/OC21",
+   "weight": 2
+  },
+  {
+   "cat": "classification",
+   "fails": [
+    [
+     1100082,
+     "no Assembly Code"
+    ],
+    [
+     1103368,
+     "no Assembly Code"
+    ],
+    [
+     1103378,
+     "no Assembly Code"
+    ],
+    [
+     1103402,
+     "no Assembly Code"
+    ],
+    [
+     1103501,
+     "no Assembly Code"
+    ],
+    [
+     1406652,
+     "no Assembly Code"
+    ],
+    [
+     2459266,
+     "no Assembly Code"
+    ]
+   ],
+   "id": "C-04/Furniture",
+   "na": false,
+   "name": "Uniformat (Furniture)",
+   "passrate": 0.9583333333333334,
+   "severity": "warn",
+   "src": "LOD/Uniformat",
+   "weight": 1
+  },
+  {
+   "cat": "classification",
+   "fails": [
+    [
+     773812,
+     "no OmniClass"
+    ],
+    [
+     783693,
+     "no OmniClass"
+    ],
+    [
+     783972,
+     "no OmniClass"
+    ],
+    [
+     785962,
+     "no OmniClass"
+    ],
+    [
+     785983,
+     "no OmniClass"
+    ],
+    [
+     785985,
+     "no OmniClass"
+    ],
+    [
+     786326,
+     "no OmniClass"
+    ],
+    [
+     786347,
+     "no OmniClass"
+    ],
+    [
+     786349,
+     "no OmniClass"
+    ],
+    [
+     786621,
+     "no OmniClass"
+    ],
+    [
+     786623,
+     "no OmniClass"
+    ],
+    [
+     787075,
+     "no OmniClass"
+    ],
+    [
+     787096,
+     "no OmniClass"
+    ],
+    [
+     787098,
+     "no OmniClass"
+    ],
+    [
+     787124,
+     "no OmniClass"
+    ],
+    [
+     787145,
+     "no OmniClass"
+    ],
+    [
+     787147,
+     "no OmniClass"
+    ],
+    [
+     787225,
+     "no OmniClass"
+    ],
+    [
+     787227,
+     "no OmniClass"
+    ],
+    [
+     787274,
+     "no OmniClass"
+    ],
+    [
+     787276,
+     "no OmniClass"
+    ],
+    [
+     787323,
+     "no OmniClass"
+    ],
+    [
+     787325,
+     "no OmniClass"
+    ],
+    [
+     798142,
+     "no OmniClass"
+    ],
+    [
+     798144,
+     "no OmniClass"
+    ],
+    [
+     806358,
+     "no OmniClass"
+    ],
+    [
+     809460,
+     "no OmniClass"
+    ],
+    [
+     809462,
+     "no OmniClass"
+    ],
+    [
+     837998,
+     "no OmniClass"
+    ],
+    [
+     838019,
+     "no OmniClass"
+    ],
+    [
+     838021,
+     "no OmniClass"
+    ],
+    [
+     906895,
+     "no OmniClass"
+    ],
+    [
+     906897,
+     "no OmniClass"
+    ],
+    [
+     906914,
+     "no OmniClass"
+    ],
+    [
+     908374,
+     "no OmniClass"
+    ],
+    [
+     908376,
+     "no OmniClass"
+    ],
+    [
+     908393,
+     "no OmniClass"
+    ],
+    [
+     908577,
+     "no OmniClass"
+    ],
+    [
+     908579,
+     "no OmniClass"
+    ],
+    [
+     908596,
+     "no OmniClass"
+    ],
+    [
+     908614,
+     "no OmniClass"
+    ],
+    [
+     908616,
+     "no OmniClass"
+    ],
+    [
+     908633,
+     "no OmniClass"
+    ],
+    [
+     908745,
+     "no OmniClass"
+    ],
+    [
+     908747,
+     "no OmniClass"
+    ],
+    [
+     908764,
+     "no OmniClass"
+    ],
+    [
+     1135951,
+     "no OmniClass"
+    ],
+    [
+     1135952,
+     "no OmniClass"
+    ],
+    [
+     1313003,
+     "no OmniClass"
+    ],
+    [
+     1313005,
+     "no OmniClass"
+    ],
+    [
+     1313022,
+     "no OmniClass"
+    ],
+    [
+     1313060,
+     "no OmniClass"
+    ],
+    [
+     1313062,
+     "no OmniClass"
+    ],
+    [
+     1313079,
+     "no OmniClass"
+    ],
+    [
+     1313117,
+     "no OmniClass"
+    ],
+    [
+     1313119,
+     "no OmniClass"
+    ],
+    [
+     1313136,
+     "no OmniClass"
+    ],
+    [
+     1319085,
+     "no OmniClass"
+    ],
+    [
+     1319087,
+     "no OmniClass"
+    ],
+    [
+     2239213,
+     "no OmniClass"
+    ],
+    [
+     2239270,
+     "no OmniClass"
+    ],
+    [
+     2239272,
+     "no OmniClass"
+    ],
+    [
+     2239274,
+     "no OmniClass"
+    ]
+   ],
+   "id": "C-01/Casework",
+   "na": false,
+   "name": "OmniClass (Casework)",
+   "passrate": 0.6440677966101696,
+   "severity": "fail",
+   "src": "LOD/OC21",
+   "weight": 2
+  },
+  {
+   "cat": "classification",
+   "fails": [
+    [
+     806358,
+     "no Assembly Code"
+    ],
+    [
+     906914,
+     "no Assembly Code"
+    ],
+    [
+     908393,
+     "no Assembly Code"
+    ],
+    [
+     908596,
+     "no Assembly Code"
+    ],
+    [
+     908633,
+     "no Assembly Code"
+    ],
+    [
+     908764,
+     "no Assembly Code"
+    ],
+    [
+     1313022,
+     "no Assembly Code"
+    ],
+    [
+     1313079,
+     "no Assembly Code"
+    ],
+    [
+     1313136,
+     "no Assembly Code"
+    ]
+   ],
+   "id": "C-04/Casework",
+   "na": false,
+   "name": "Uniformat (Casework)",
+   "passrate": 0.9491525423728814,
+   "severity": "warn",
+   "src": "LOD/Uniformat",
+   "weight": 1
+  },
+  {
+   "cat": "classification",
+   "fails": [
+    [
+     1996153,
+     "no Assembly Code"
+    ]
+   ],
+   "id": "C-05/Walls",
+   "na": false,
+   "name": "Uniformat system (Walls)",
+   "passrate": 0.999113475177305,
+   "severity": "fail",
+   "src": "LOD/Uniformat",
+   "weight": 2
+  },
+  {
+   "cat": "classification",
+   "fails": [],
+   "id": "C-05/Floors",
+   "na": false,
+   "name": "Uniformat system (Floors)",
+   "passrate": 1.0,
+   "severity": "fail",
+   "src": "LOD/Uniformat",
+   "weight": 2
+  },
+  {
+   "cat": "classification",
+   "fails": [],
+   "id": "C-05/Roofs",
+   "na": false,
+   "name": "Uniformat system (Roofs)",
+   "passrate": 1.0,
+   "severity": "fail",
+   "src": "LOD/Uniformat",
+   "weight": 2
+  },
+  {
+   "cat": "classification",
+   "fails": [],
+   "id": "C-05/Ceilings",
+   "na": false,
+   "name": "Uniformat system (Ceilings)",
+   "passrate": 1.0,
+   "severity": "fail",
+   "src": "LOD/Uniformat",
+   "weight": 2
+  },
+  {
+   "cat": "geometry",
+   "fails": [
+    [
+     0,
+     "34 warnings"
+    ]
+   ],
+   "id": "G-01",
+   "na": false,
+   "name": "Revit warnings",
+   "passrate": 0.5,
+   "severity": "fail",
+   "src": "practitioner",
+   "weight": 3
+  },
+  {
+   "cat": "geometry",
+   "fails": [
+    [
+     1603694,
+     "Residential Lobby Stair Landing Support"
+    ],
+    [
+     1996128,
+     "Parapet Cap Bandstand"
+    ]
+   ],
+   "id": "G-02",
+   "na": false,
+   "name": "In-place families",
+   "passrate": 0.5,
+   "severity": "fail",
+   "src": "practitioner",
+   "weight": 2
+  },
+  {
+   "cat": "geometry",
+   "fails": [],
+   "id": "G-03",
+   "na": false,
+   "name": "Imported CAD",
+   "passrate": 1.0,
+   "severity": "fail",
+   "src": "practitioner",
+   "weight": 2
+  },
+  {
+   "cat": "naming",
+   "fails": [],
+   "id": "N-03",
+   "na": false,
+   "name": "Levels named + unique",
+   "passrate": 1.0,
+   "severity": "warn",
+   "src": "practitioner",
+   "weight": 1
+  },
+  {
+   "cat": "naming",
+   "fails": [],
+   "id": "N-01",
+   "na": false,
+   "name": "Family names clean+unique",
+   "passrate": 1.0,
+   "severity": "fail",
+   "src": "practitioner",
+   "weight": 2
+  },
+  {
+   "cat": "worksharing",
+   "fails": [],
+   "id": "W-01",
+   "na": true,
+   "name": "Worksharing (standalone N/A)",
+   "passrate": 1.0,
+   "severity": "info",
+   "src": "practitioner",
+   "weight": 2
+  }
+ ]
+}
