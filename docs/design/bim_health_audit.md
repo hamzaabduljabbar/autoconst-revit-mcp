@@ -1,186 +1,304 @@
 # Design: `bim_health_audit` / `bim_health_fix` — native BIM Health Scorecard tools
 
-Status: DRAFT for independent review (Codex) · Author: Claude (with Hamza Jabbar) · 2026-10-02
+Status: **REVISION 2** — addresses independent review round 1 (Codex) · 2026-10-02
+Author: Claude (with Hamza Jabbar)
 
-> Reviewer: this doc is self-contained. Please challenge scope, architecture, the
-> parity strategy and the safety rules, and answer the **Open questions** at the end.
-> Nothing is implemented yet.
+> Reviewer: this doc is self-contained. §0 maps each round-1 finding to its resolution.
+> Nothing is implemented yet. Remaining decisions for the author are in §11.
+
+---
+
+## 0. Round-1 review resolutions
+
+| # | Finding | Resolution | Section |
+|---|---|---|---|
+| F1 | Apply can write a different plan than previewed | Dry-run returns a `plan_id` bound to document identity + per-type current/proposed values; apply requires it and revalidates before opening the transaction; stale → reject. Per-type changes and skip reasons returned. | §4.2 |
+| F2 | Fix test promised C-05 improvement (impossible) | Fix scope = v1.3 `CATS` (loadable categories only). Test asserts improvement only for affected C-04 rules; C-05 must be **unchanged**. | §4.2, §7 |
+| F3 | P-09m stage test contradicts v1.3 logic | Parity release preserves v1.3: `na_allowed` forces `info` before stage lookup, so fabrication does **not** change P-09m. Stage correction deferred to a versioned rule change (engine 1.4) with new expected scores. Absent-category denominator rule defined. | §5.3, §9 |
+| F4 | Output contract not lossless | `fail_count` computed before truncation; added `failing_returned`, `failing_truncated`, `fail_count_source`; G-03 special case defined; `elements_checked` defined; adapter parses the real MCP text response. | §4.1 |
+| F5 | Quantity profile too broad | Removed from this release. Moved to a separate future design with its own contract. | §3 |
+| F6 | Parity needs more than one score | Structured per-rule baseline with full provenance + second small fixture. | §7 |
+| Q1 | Split engine/rules | Accepted; doc + stage passed explicitly, no module-level state. | §5 |
+| Q2 | Capped IDs, no server file path | Accepted. | §4.1 |
+| Q3 | Separate fix tool | Accepted. | §4.2 |
+| Q4 | Parity first, versioned correction later | Accepted; write-safety protocol correct from day one. | §5.3, §9 |
+| Q5 | Harden route registration | Accepted, in scope as step 0. | §6 |
+| Q6 | Licensing | Decision required from author before merge. | §11 |
 
 ---
 
 ## 1. Context
 
-**AutoConst Revit MCP** (this repo) is an MCP server for Autodesk Revit. Architecture:
+**AutoConst Revit MCP** (this repo) is an MCP server for Autodesk Revit:
 
 ```
 MCP client ──stdio──> main.py + tools/*.py   (CPython 3.11+, FastMCP)
                          │ HTTP  localhost:48884/revit_mcp/<route>/
                          ▼
                       revit_mcp/*.py  (pyRevit Routes, IronPython 2.7, runs INSIDE Revit)
-                         │
                          ▼
                       Revit API (active document)
 ```
 
-- Each MCP tool = a thin CPython wrapper in `tools/` + a route in `revit_mcp/` registered in `startup.py`.
-- Route handlers run on Revit's thread; writes must use an explicit `DB.Transaction`.
+- Each MCP tool = CPython wrapper in `tools/` + a route in `revit_mcp/`, registered in `startup.py`.
 - `tests/test_offline.py` + `tests/tool_contract.json` lock tool names/input schemas.
+- `tools/utils.py::format_response` returns, on success, either a leading `message` line
+  followed by pretty JSON, or pretty JSON alone. Consumers must parse that real text (§4.3).
 
-**Today**, the BIM Health Scorecard is a separate Claude *skill*
-(`autoconst-claude-bim-health-scorecard` repo). The skill pastes a 213-line IronPython
-script (`engine/score_model.py`) into the generic `execute_revit_code` tool on every run,
-writes JSON, then a host-side script (`engine/build_scorecard.py`, openpyxl) builds an Excel
-scorecard. A second script (`engine/autofix_assembly_code.py`) fills blank Uniformat codes.
+**Today** the BIM Health Scorecard is a separate Claude skill
+(`autoconst-claude-bim-health-scorecard`, engine v1.3). Each run pastes the 213-line
+IronPython `engine/score_model.py` into the generic `execute_revit_code` tool, writes JSON,
+and a host script (`engine/build_scorecard.py`, openpyxl) builds the Excel. A second script
+(`engine/autofix_assembly_code.py`) fills blank Uniformat codes and auto-commits.
 
-**Problems with the current approach**
-1. Depends on the model faithfully re-sending a long script each run — token cost, and a
-   risk of the script being altered/truncated between runs (non-repeatable grades).
-2. Only works in Claude with the skill installed; not usable from other MCP clients.
-3. `execute_revit_code` auto-commits, so the auto-fix has no structured dry-run/confirm step.
+**Problems:** token cost and non-repeatability (script re-sent each run), skill-only (other
+MCP clients can't use it), and the fix has no real preview/confirm step.
 
 ## 2. Goal
 
-Ship the scorecard as **first-class MCP tools** so any MCP client gets a repeatable,
-structured audit with one call, and the fix is a safe, explicit, two-step operation.
-
-Non-goal: changing *what* the scorecard measures. v1 is a **faithful port** of engine v1.3.
+First-class MCP tools: a repeatable read-only audit in one call, and a fix whose preview is
+exactly what gets applied. **Release 1 is a faithful port of engine v1.3 math**; corrections
+come later as versioned rule changes (§9).
 
 ## 3. Scope
 
-### In scope (v1)
-| Tool | Purpose |
-|---|---|
-| `bim_health_audit` | Run all v1.3 rules on the active model; return grade, category scores, per-rule results, failing element IDs (capped). Read-only. |
-| `bim_health_fix` | Fill blank Uniformat **Assembly Code** on element **types** (v1.3 auto-fix logic). Dry-run by default. |
+### In scope (release 1)
+0. Harden route registration in `startup.py` (§6) — prerequisite.
+1. `bim_health_audit` — read-only, full v1.3 ruleset.
+2. `bim_health_fix` — Assembly Code fill, v1.3 fill policy, new plan-bound safety protocol.
+3. Skill update: SKILL.md calls the tools; `build_scorecard.py` gets an adapter.
 
-Plus a `profile` subset the future `quantity_takeoff` tool can call: `checks="quantity"`
-(see §6).
-
-### Out of scope (v1) — stays in the skill or later
-- Excel generation (stays host-side in the skill's `build_scorecard.py`; it consumes the tool's JSON).
-- Color-splash visualisation (existing `color_splash` tool can be fed the failing IDs).
-- UK/Uniclass profile, YAML-driven custom rules (`rules/*.yaml` exist but engine v1.3 hard-codes rules; keep parity first).
-- OmniClass fixes (read-only via API; needs family editor — impossible through MCP).
-- Linked models (audit the host document only; report link count).
+### Out of scope (release 1)
+- **`checks="quantity"` profile** — removed (F5). Will get its own design (eligible
+  categories, exclusions, units, "quantity risk" vs "confirmed error", findings without a grade)
+  alongside the `quantity_takeoff` design.
+- Engine 1.4 corrections (§9), Excel generation inside the server, colour-splash, UK/Uniclass
+  profile, YAML rule loading, OmniClass fixes (read-only via API), linked models.
 
 ## 4. Tool contracts
 
-### 4.1 `bim_health_audit`
+### 4.1 `bim_health_audit` (read-only)
+
 Input:
 ```json
-{
-  "stage": "design | fabrication | operations",   // default "design"
-  "checks": "all | quantity",                      // default "all"
-  "max_failing_ids": 200                           // per rule, default 200
-}
+{ "stage": "design", "max_failing_ids": 200 }
 ```
-Output (JSON string via existing `format_response`; numbers below are shape placeholders except `overall`/`grade`, which are the Snowdon baseline):
+- `stage` ∈ `design | fabrication | operations` (default `design`); anything else → HTTP 400.
+- `max_failing_ids` integer 0–1000 (default 200), per rule.
+
+Output (`status: success`):
 ```json
 {
   "status": "success",
   "engine_version": "1.3",
-  "model": "Snowdon Towers Sample Architectural",
+  "ruleset_version": "1.3",
+  "document": {"title": "...", "path": "...", "is_workshared": false},
   "stage": "design",
-  "overall": 85.77,
-  "grade": "B",
-  "category_scores": {"naming": 0, "parameters": 0, "classification": 0, "geometry": 0, "worksharing": 0},
-  "rules": [
-    {"id": "P-06", "category": "parameters", "name": "Doors: Type Mark/Width/Height",
-     "severity": "fail", "weight": 2, "source": "LOD C1030", "advisory": false,
-     "pass_rate": 0.93, "element_count": 142, "fail_count": 10,
-     "failing": [{"id": 745589, "reason": "Type Mark"}], "failing_truncated": false}
-  ],
-  "summary": {"rules_run": 0, "rules_failing": 0, "elements_checked": 0},
+  "overall": 85.77, "grade": "B",
+  "category_scores": {"parameters": 0.0},
+  "categories_scored": ["parameters", "classification", "geometry", "naming"],
+  "categories_not_scored": [{"category": "worksharing", "reason": "only info-severity rules"}],
+  "rules": [{
+    "id": "P-06", "category": "parameters", "name": "Doors: Type Mark/Width/Height",
+    "severity": "fail", "weight": 2, "source": "LOD C1030", "advisory": false,
+    "applicable": true,
+    "element_count": 142,
+    "pass_rate": 0.93,
+    "fail_count": 10, "fail_count_source": "elements",
+    "failing": [{"id": 745589, "reason": "Type Mark"}],
+    "failing_returned": 1, "failing_truncated": false
+  }],
+  "summary": {"rules_run": 0, "rules_scored": 0, "rules_with_failures": 0,
+              "unique_elements_checked": 0},
   "message": "Grade B (85.8/100), stage=design"
 }
 ```
-Rule results keep v1.3 field semantics (`passrate`, `fails`, `src`, `na`) renamed to
-readable keys; the skill's `build_scorecard.py` gets a small adapter.
+Numbers are shape placeholders except `overall`/`grade` (Snowdon baseline).
 
-### 4.2 `bim_health_fix`
-Input:
+**Field semantics (lossless):**
+- `fail_count` is computed on the **full** result before truncation. `failing` holds the first
+  `max_failing_ids` entries in ascending element-ID order (stable). `failing_returned = len(failing)`;
+  `failing_truncated = fail_count > failing_returned`.
+- `reason`: comma-joined missing parameter names for parameter rules; fixed tokens otherwise
+  (`no OmniClass`, `no Assembly Code`, `unplaced/area0`, `unnamed`, `dup`, `illegal`).
+- `fail_count_source`:
+  - `"elements"` — `fail_count` = number of failing elements (all rules except below).
+  - `"aggregate"` — the rule scores a model-level quantity, not elements. Applies to
+    **G-01** (Revit warnings: `fail_count` = warning count, `failing = []`, `element_count = null`)
+    and **G-03** (imported CAD: v1.3 reports pass rate 0 with an empty fails list;
+    release 1 sets `fail_count` = number of non-linked `ImportInstance`s and returns their IDs,
+    leaving `pass_rate` exactly as v1.3 computes it).
+- `applicable: false` when the rule's category has no elements in the model (v1.3 skips the rule
+  entirely; release 1 still lists it, with `pass_rate = null`, so absence is visible but scoring is unchanged).
+- `advisory` = v1.3 `na` flag.
+- `summary.unique_elements_checked` = count of distinct element IDs examined by element-level rules
+  (an element checked by three rules counts once).
+
+### 4.2 `bim_health_fix` (writes) — plan-bound two-step
+
+**Step 1 — preview** (`apply` omitted/false):
 ```json
-{ "fix": "assembly_code", "apply": false }
+{ "fix": "assembly_code" }
 ```
-- `apply=false` (default): returns per-category targets: `{category, blank_types, fill_value, fill_source: "modal|default"}`. Writes nothing.
-- `apply=true`: performs the same plan inside ONE named transaction
-  (`"AutoConst: fill Assembly Codes"`), returns filled type IDs. Single Ctrl+Z undoes it.
-- Never overwrites a non-empty value. Skips read-only params.
+Returns:
+```json
+{
+  "status": "success", "mode": "preview",
+  "plan_id": "sha256:…",
+  "document": {"title": "...", "path": "..."},
+  "changes": [
+    {"type_id": 123, "category": "Structural Framing", "type_name": "W12x26",
+     "current": "", "proposed": "B1010", "fill_source": "modal"}
+  ],
+  "skipped": [
+    {"type_id": 456, "category": "Windows", "reason": "already_set", "current": "B2020"},
+    {"type_id": 789, "category": "Furniture", "reason": "param_read_only"}
+  ],
+  "summary": {"to_change": 0, "skipped": 0, "categories": []}
+}
+```
+**Step 2 — apply:**
+```json
+{ "fix": "assembly_code", "apply": true, "plan_id": "sha256:…" }
+```
 
-## 5. Architecture / where code lives
+**Plan identity:** `plan_id` = SHA-256 over a canonical JSON of: fix name, ruleset version,
+document identity (`doc.Title`, `doc.PathName`, and `doc.GetHashCode()` of the live document object),
+and the sorted list of `(type_id, current_value, proposed_value)` for every change.
+The server is stateless: apply **recomputes the plan from the live document** and compares hashes.
 
+**Apply algorithm:**
+1. `plan_id` missing → 400 (`apply` without a preview is impossible).
+2. Recompute plan → hash. Mismatch → 409 `stale_plan` with the fresh preview in the body;
+   nothing written. (Covers document switch, intervening edits, changed modal values.)
+3. Open ONE transaction `"AutoConst: fill Assembly Codes"`; for each change re-read the param:
+   if no longer empty or read-only → roll back the whole transaction, 409 `stale_plan`.
+4. Set values; commit. Any exception → roll back, 500 with traceback, nothing written.
+5. Return per-type results. One Ctrl+Z reverts the whole fix.
+
+**Fill policy (v1.3, unchanged):** categories = v1.3 `CATS` (Structural Framing, Structural
+Columns, Structural Foundations, Windows, Plumbing Fixtures, Lighting Fixtures, Casework,
+Furniture). Fill value = that category's modal existing code, else the v1.3 Uniformat default.
+Never overwrites. **Walls/Floors/Roofs/Ceilings (C-05) and Doors are not touched** — known
+gaps, listed in §9.
+
+### 4.3 Response transport & the Excel adapter
+The MCP tool returns `format_response` text: optionally a `message` line, then JSON. The
+skill-side adapter must locate the first `{` and `json.loads` from there — tested against a
+captured real tool response (fixture), not a hand-written dict.
+
+## 5. Architecture
+
+### 5.1 Files
 | Layer | File | Responsibility |
 |---|---|---|
-| Revit side | `revit_mcp/health_audit.py` (new) | Rule engine ported from `score_model.py`: collectors, param rules, classification, geometry, naming, worksharing, scoring. Pure functions returning dicts. |
-| Revit side | `revit_mcp/health_rules.py` (new) | Rule table (the `PARAM_RULES` list etc.) separated from engine code, so a later YAML loader can replace it. |
-| Revit side | routes `/health_audit/` (GET-like POST), `/health_fix/` (POST) registered in `startup.py` | Parse input, call engine, `make_response`. |
-| MCP side | `tools/health_tools.py` (new) | `bim_health_audit`, `bim_health_fix` wrappers + docstrings. |
-| Tests | `tests/test_offline.py`, `tool_contract.json` | Contract regenerated (+2 tools); offline tests for input validation/formatting. |
-| Tests | `tests/live/check_health_audit.py` (new) | Live parity test vs Snowdon baseline (§7). |
+| Revit | `revit_mcp/health_rules.py` | Rule table only (data): param rules, classification category lists, thresholds, weights, grade bands. `RULESET_VERSION = "1.3"`. |
+| Revit | `revit_mcp/health_engine.py` | Scoring core: `run_audit(doc, stage, max_ids)`, `build_fix_plan(doc)`, `apply_fix_plan(doc, plan_id)`. **No module-level doc/stage/state**; everything passed in. |
+| Revit | `revit_mcp/health_routes.py` | Route adapter: `/health_audit/`, `/health_fix/` (POST); input validation; `make_response`. |
+| MCP | `tools/health_tools.py` | `bim_health_audit`, `bim_health_fix` wrappers + docstrings telling clients to preview first. |
+| Tests | `tests/test_offline.py`, `tool_contract.json` | Contract +2 tools; offline validation/formatting tests. |
+| Tests | `tests/live/check_health_audit.py`, `tests/live/baselines/*.json` | Live parity + fixture tests (§7). |
 
-**Why the rules run Revit-side, not host-side:** the checks need hundreds of
-`LookupParameter` calls on thousands of elements; doing that over HTTP per element would be
-orders of magnitude slower. Only the result (scores + capped failing IDs) crosses HTTP.
+Rules run Revit-side: thousands of parameter lookups must not cross HTTP per element.
 
-**IronPython 2.7 constraints:** no f-strings, `unicode` for text, guard `.Name` access,
-avoid py3-only syntax. (A stray py3/escape syntax error in one module previously aborted
-`startup.py` and silently dropped every later route — so: see Q5.)
+### 5.2 IronPython 2.7 constraints
+No f-strings or py3-only syntax; `unicode` for text; guard `.Name`. Verify `hashlib.sha256`
+is available in pyRevit's IronPython; fallback: .NET `System.Security.Cryptography.SHA256`. All files must pass a CPython `ast.parse` check in CI
+(the escaping bug that previously aborted startup would have been caught).
 
-## 6. `checks="quantity"` profile (for the future takeoff tool)
+### 5.3 v1.3 scoring semantics preserved exactly
+- `SEV_FACTOR = {fail: 1.0, warn: 0.5, info: 0.0}`.
+- Severity resolution per v1.3 `param_rule`: **if `na_allowed` → `info`**, else
+  `severity_by_stage[stage]` if present, else `severity`. (P-09m is therefore `info` at every stage.)
+- v1.3 quirk preserved: P-04h/p/l set `na_allowed = (STAGE == "design")` — in release 1 this is
+  evaluated **per request** from the `stage` argument (behaviour identical to v1.3 when run with that stage; no import-time globals).
+- Category score = `100 * Σ(w·sev·pass) / Σ(w·sev)` over rules with `sev > 0` **that ran**.
+- **Absent categories / denominator:** a category with zero scoring rules (all skipped because their
+  element categories are empty, or all `info`) is **omitted** from `category_scores`, and the overall
+  score is the weighted mean over **present** categories only: `Σ(W_c·S_c) / Σ(W_c)` for scored `c`.
+  This is v1.3 behaviour; it is made explicit via `categories_not_scored`.
+- Grade bands A≥90, B≥80, C≥70, D≥60, else F.
 
-Runs only checks that change quantity correctness, all read-only:
-- Structural framing/columns missing `Structural Material` (existing P-09/P-09c).
-- Rooms unplaced or area ≤ 0 (existing P-11).
-- In-place families (existing G-02) — often unmeasurable/mis-categorised.
-- Imported CAD (existing G-03).
-- **New (not in v1.3, flagged as such):** host elements (walls/floors/roofs/ceilings/columns/framing)
-  with **no material** or **zero volume**; elements in **Generic Models**.
-The new checks do NOT affect the `checks="all"` grade (parity preserved).
+## 6. Step 0 — harden route registration
+- `startup.py`: register each module in its own `try/except`; log the traceback via pyRevit logger;
+  continue with the next module.
+- Keep a module-level `REGISTRY = {"loaded": [...], "failed": [{"module", "error"}]}`.
+- New route `/routes_status/` registered **first**, before any feature module, with no imports beyond
+  `routes`/`json`, returning `REGISTRY` — so it survives any later failure.
+- MCP side: extend `get_revit_status` output with loaded/failed module counts (no new tool, so the
+  contract is unchanged apart from the description).
+- Offline test: `ast.parse` every `revit_mcp/*.py` and `startup.py`.
 
-## 7. Parity & test plan
+## 7. Test plan
 
-1. **Parity (gate):** on Snowdon Towers Sample Architectural, design stage,
-   `bim_health_audit` must reproduce the v1.3 skill result: overall **85.77 → grade B**,
-   identical category scores, identical per-rule pass rates and fail counts.
-   Baseline: `autoconst-claude-bim-health-scorecard/outputs/scorecard_data.json`
-   (2026-07-31). Re-run the v1.3 script live first to confirm the baseline still holds on
-   the current Revit install before comparing.
-2. **Stage switching:** fabrication stage changes P-09m severity (info→fail); assert the grade moves accordingly.
-3. **Fix dry-run:** `apply=false` writes nothing (element count + a sampled Assembly Code unchanged).
-4. **Fix apply:** on a scratch copy of the model only (never the shipped sample in Program Files):
-   apply → re-audit shows C-04/C-05 pass rates up, then Ctrl+Z restores (single transaction).
-5. **Offline:** contract test updated; formatter handles the new payload; input validation (bad stage / checks value → 400).
-6. **Skill update:** `bim-health-scorecard` SKILL.md switched to call the tools; Excel builder reads new JSON via adapter; regenerate the Snowdon Excel and diff key cells vs the old one.
+**7.1 Baseline capture (before porting).** Run the unmodified v1.3 script via `execute_revit_code`
+on the current Revit install and save a structured baseline JSON:
+`{model_title, model_path, file_size, file_mtime, revit_version_build, engine_commit (scorecard repo SHA), stage, overall, grade, category_scores, rules:[{id, severity, advisory, applicable, pass_rate, fail_count}]}`
+for each stage (design / fabrication / operations). Compare to the 2026-07-31 saved result (85.77, B)
+and record any drift before proceeding.
+
+**7.2 Parity gate (Snowdon Towers Sample Architectural).** For each stage, `bim_health_audit` must
+match the baseline on: rule presence, severity, advisory, applicability, pass rate (|Δ| < 1e-9),
+fail count, every category score, overall (|Δ| < 1e-9), grade. G-03 `fail_count` is the one
+deliberately new field (v1.3 had none) and is checked against a direct `ImportInstance` count.
+
+**7.3 Second fixture (small scratch model)** created by the test via MCP tools into a temp `.rvt`
+(never the shipped sample in Program Files). Must cover:
+empty categories (rule `applicable: false`, category omitted from denominator);
+type-level vs instance-level parameter reads (`pget` instance→type fallback);
+duplicate/unnamed levels; a non-workshared doc (W-01 info). Worksharing-enabled coverage is a
+known gap unless a workshared fixture can be produced — recorded, not silently skipped.
+Expected values are computed by running v1.3 on the same fixture.
+
+**7.4 Stage behaviour (parity):** fabrication and operations results equal their v1.3 baselines;
+explicitly assert P-09m is `info` at all stages (documents the quirk).
+
+**7.5 Fix safety** (fixture model only):
+- Preview writes nothing (re-audit identical; sampled type values unchanged).
+- Apply with matching `plan_id` → C-04 pass rates for affected categories rise to the expected
+  value; **C-05 unchanged**; one Ctrl+Z restores the pre-fix audit exactly.
+- Apply with a stale plan (edit one type's code between preview and apply) → 409, nothing written.
+- Apply after switching active document → 409.
+- Apply without `plan_id` → 400.
+
+**7.6 Offline:** contract (+2 tools), input validation (bad stage, bad `max_failing_ids`, apply without plan),
+formatter output parsed by the adapter from a captured real response.
+
+**7.7 Skill:** SKILL.md uses the tools; regenerate the Snowdon Excel; key cells match the old
+workbook (overall, grade, per-rule pass rates).
 
 ## 8. Risks
-
 | Risk | Mitigation |
 |---|---|
-| Port drifts from v1.3 math | Parity gate in §7.1 before merge. |
-| Large models: HTTP timeout | Cap failing IDs; measure runtime on Snowdon (17k elements); route timeout documented. |
-| Fix writes to a user's real model | Dry-run default; explicit `apply=true`; one named transaction; never overwrite. |
-| One bad module kills all routes at startup | Q5. |
-| v1.3 known-questionable logic (below) | Port as-is for parity, list as follow-ups, don't silently "fix". |
+| Port drifts from v1.3 | Structured multi-stage parity gate (§7.2) + second fixture. |
+| Large model HTTP timeout | IDs capped; measure Snowdon (17k elements) runtime; document limit. |
+| Fix writes something not previewed | Plan-bound apply, revalidation, single transaction (§4.2). |
+| One bad module drops all routes | Step 0 (§6) + `ast.parse` CI check. |
+| `doc.GetHashCode()` not stable enough as identity | It only needs to distinguish documents within one Revit session between preview and apply; plus title/path and per-type values in the hash. Verify live. |
 
-**Known questionable v1.3 behaviours (ported as-is, follow-up candidates):**
-- Auto-fix fills ALL blank types in a category with that category's single most-common code
-  (e.g. every blank framing type gets the same Uniformat code) — plausible for consistency,
-  but could be wrong per type.
-- Auto-fix comment says doors resolve by Function, but Doors are not in `CATS` → doors never fixed.
-- `pget` falls back from instance to type parameter by name; `AsValueString()` is preferred over
-  `AsString()` (a fix to prefer `AsString()` was reverted in the skill repo — reason not recorded).
-- Thresholds/weights are Tier-3 opinions (see skill repo `VERIFICATION.md`).
-- `na_allowed=(STAGE == "design")` is evaluated at import time in v1.3; in a route it must be per-request.
+## 9. Known v1.3 defects — ported as-is, fixed in engine 1.4 (separate versioned change)
+1. P-09m stage severity never applies (na_allowed short-circuit).
+2. Fill policy assigns one modal code to every blank type in a category.
+3. Doors excluded from the fix despite the comment saying they resolve by Function.
+4. C-05 (system families) has no fix path.
+5. `pget` prefers `AsValueString()` over `AsString()` (a reversal was itself reverted; reason unrecorded).
+6. G-03 returns no failing IDs (release 1 adds them without changing the score).
+Engine 1.4 will ship with its own baselines and a changelog of score changes.
 
-## 9. Open questions for reviewer
-1. Should the engine live in one Revit-side module, or split engine/rules as proposed (§5)?
-2. Is returning failing IDs capped at 200/rule the right trade-off, or should the tool write
-   the full result to a JSON file on disk and return its path?
-3. Should `bim_health_fix` be its own tool, or a mode of `bim_health_audit`? (Proposed: separate — read vs write tools should be distinct for client permission prompts.)
-4. Parity first, or correct the questionable v1.3 behaviours (§8) in the same change?
-5. `startup.py` registers modules sequentially in one try-block; one import error drops every
-   later route. Should we harden registration (per-module try/except + logged failure + a
-   `/health` route listing which modules loaded) as part of this work or separately?
-6. Licensing: the scorecard repo is the author's own (Source-Available license); this MCP repo
-   is MIT-derived. Porting the engine into the MCP repo — any license-boundary concern the
-   author should decide on before merge?
+## 10. Rollout
+1. Step 0 (registration hardening) — own commit, live-verified.
+2. Baseline capture (§7.1) — committed under `tests/live/baselines/`.
+3. Engine + routes + tools — parity gate must pass.
+4. Fix tool — fixture safety tests must pass.
+5. Skill switch-over.
+Each step reviewed before the next.
+
+## 11. Decision required from the author (blocking merge)
+**Licensing of the ported engine.** The scorecard repo is Source-Available (no redistribution);
+this repo is MIT-derived. Options:
+- **A.** Author grants the ported engine files an MIT license (author confirms no third-party
+  contributions in the scorecard engine).
+- **B.** Keep AutoConst-authored files (engine port and future AutoConst features) under a
+  proprietary/Source-Available license, with per-file headers; upstream MIT files keep MIT + notices.
+  The repo's LICENSE/NOTICE then documents the split.
+Record the decision in `NOTICE` before merge.
