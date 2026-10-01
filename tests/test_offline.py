@@ -149,3 +149,29 @@ def test_image_is_decoded():
 ])
 def test_transport_flags(argv, expected):
     assert main.parse_args(argv).transport == expected
+
+
+# --- Revit-side source sanity ------------------------------------------------
+
+def test_revit_side_files_parse():
+    """A syntax error in any route module used to abort registration of every later module."""
+    import ast
+    import glob
+
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    files = glob.glob(os.path.join(root, "revit_mcp", "*.py")) + [os.path.join(root, "startup.py")]
+    for path in files:
+        with open(path, encoding="utf-8") as f:
+            ast.parse(f.read(), filename=path)
+
+
+# --- health tools ---------------------------------------------------------------
+
+def test_health_tools_always_return_one_json_document():
+    from tools.health_tools import _as_json
+
+    ok = json.loads(_as_json({"status": "success", "overall": 85.1, "message": "Grade B"}))
+    assert ok["overall"] == 85.1
+    err = json.loads(_as_json(main.TIMEOUT_HINT.format(path="/health_fix/", secs=180)))
+    assert err["status"] == "error" and err["error_code"] == "timeout"
+    assert err["transaction"]["status"] == "unknown"

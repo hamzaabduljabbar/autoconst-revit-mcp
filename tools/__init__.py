@@ -33,6 +33,7 @@ _MODULES = (
     ("detail_tools", "register_detail_tools", _ALL),
     ("clash_tools", "register_clash_tools", _ALL),
     ("document_tools", "register_document_tools", _ALL),
+    ("health_tools", "register_health_tools", _ALL),
 )
 
 
