@@ -258,4 +258,7 @@ Contributions are welcome — from typo fixes to new tools! Read **[CONTRIBUTING
 
 ## License
 
-MIT
+Mixed — see [NOTICE](NOTICE):
+
+- **Upstream code** (from mcp-server-for-revit-python and the Demolinator fork): [MIT](LICENSE).
+- **AutoConst code** (files with the `AutoConst Source Available License` header, listed in NOTICE): [AutoConst Source Available License](LICENSE-AUTOCONST) — free to use and modify, including commercial use within your own organisation; no resale, rebranding or paid-service distribution.

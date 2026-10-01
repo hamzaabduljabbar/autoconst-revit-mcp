@@ -1,12 +1,20 @@
 # Design: `bim_health_audit` / `bim_health_fix` — native BIM Health Scorecard tools
 
-Status: **REVISION 3** — addresses independent review rounds 1 and 2 (Codex) · 2026-10-02
+Status: **REVISION 4** — addresses independent review rounds 1–3 (Codex) · 2026-10-02
 Author: Claude (with Hamza Jabbar)
 
 > Reviewer: this doc is self-contained. §0 maps each finding to its resolution
-> (round 2 first). Nothing is implemented yet. Licensing decided (§11).
+> (latest round first). Nothing is implemented yet. Licensing decided (§11).
 
 ---
+
+## 0b. Round-3 review resolutions
+
+| # | Finding | Resolution | Section |
+|---|---|---|---|
+| R3-1 | G-01 marked truncated forever (`fail_count` = warnings, `failing = []`) | New `findings_available`; truncation = `findings_available > failing_returned`. G-01 `findings_available = 0` → never truncated. G-01 and G-03 exempt from `len(fails)` parity (pass rate still exact). | §4.1, §7.2 |
+| R3-2 | Uncapped audit vs 30 s timeout / unbounded payload | Release-1 gate: dedicated `HEALTH_TIMEOUT` (180 s), `MAX_TOTAL_FINDINGS` (20000) with `complete_export:false` + `export_too_large`, builder hard-fails/labels, row count asserted vs `total_findings`; limits finalised by measured gate §7.8; pagination deferred to release 2. | §4.3, §7.8 |
+| R3-3 | Licence decision missing from published metadata | `pyproject.toml` PEP 639 expression + `license-files`; README License section updated; no build backend declared (noted). | §11 |
 
 ## 0a. Round-2 review resolutions
 
@@ -128,8 +136,13 @@ Numbers are shape placeholders except `overall`/`grade` (Snowdon baseline).
 
 **Field semantics (lossless):**
 - `fail_count` is computed on the **full** result before truncation. `failing` holds the first
-  `max_failing_ids` entries in ascending element-ID order (stable). `failing_returned = len(failing)`;
-  `failing_truncated = fail_count > failing_returned`.
+  `max_failing_ids` entries in ascending element-ID order (stable). `failing_returned = len(failing)`.
+- `findings_available` = number of element-level findings the rule produced (full, pre-cap).
+  For `"elements"`/`"findings"` rules it equals `fail_count`; for `"aggregate"` rules it is the
+  number of element IDs the rule can list (**G-01: 0**; **G-03: number of non-linked imports**).
+- `failing_truncated = findings_available > failing_returned` — truncation is measured against
+  listable findings, **never** against `fail_count`. So G-01 (warnings, no element list) is never
+  truncated, and an uncapped audit is complete iff every rule has `failing_truncated: false`.
 - `reason`: comma-joined missing parameter names for parameter rules; fixed tokens otherwise
   (`no OmniClass`, `no Assembly Code`, `unplaced/area0`, `unnamed`, `dup`, `illegal`).
 - `fail_count_source`:
@@ -213,7 +226,22 @@ Tested against a captured real tool response (fixture), not a hand-written dict.
 **Excel completeness (product choice):** the scorecard workbook's Failing Elements sheet must be
 complete. The skill calls `bim_health_audit` with `max_failing_ids: 0`. The builder checks every
 rule's `failing_truncated`; if any is true it titles the sheet **"SAMPLE — capped"** and adds
-per-rule `fail_count` and omitted-count columns, so a truncated sheet can never look complete.
+per-rule `findings_available` and omitted-count columns, so a truncated sheet can never look complete.
+
+**Release-1 size/time gate (no pagination in release 1):**
+- The health tools use their own HTTP timeout `HEALTH_TIMEOUT = 180 s` (the shared
+  `DEFAULT_TIMEOUT` of 30 s in `main.py` is unchanged for other tools).
+- Route-side hard limit `MAX_TOTAL_FINDINGS = 20000` across all rules for an uncapped request.
+  If the full audit's Σ `findings_available` exceeds it, the route still returns all scores and
+  counts but responds with `"complete_export": false`, `"error_code": "export_too_large"`, and
+  findings capped at 200/rule. The builder treats `complete_export: false` (or any HTTP/MCP timeout)
+  as a **hard failure** of the complete workbook: it either aborts with a clear message or writes a
+  workbook explicitly titled "SAMPLE — capped". It never claims completeness.
+- Every successful uncapped response carries `"complete_export": true` and `"total_findings"`; the
+  builder asserts its row count equals `total_findings`.
+- The 20000 / 180 s values are **provisional**; the gate (§7.8) measures Snowdon and sets the final
+  numbers with ≥2× headroom over the measured payload/runtime. Paginated findings (with a
+  model-state consistency token across pages) are deferred to release 2 if real models exceed the limit.
 
 ## 5. Architecture
 
@@ -275,8 +303,13 @@ and record any drift before proceeding.
 
 **7.2 Parity gate (Snowdon Towers Sample Architectural).** For each stage, `bim_health_audit` must
 match the baseline on: rule presence, severity, advisory, applicability, pass rate (|Δ| < 1e-9),
-fail count, every category score, overall (|Δ| < 1e-9), grade. G-03 `fail_count` is the one
-deliberately new field (v1.3 had none) and is checked against a direct `ImportInstance` count.
+fail count, every category score, overall (|Δ| < 1e-9), grade. **Exempt from direct
+v1.3 `len(fails)` parity** (both are aggregate rules with deliberately new count fields; their
+`pass_rate` is still compared exactly):
+- **G-01**: v1.3 `fails` holds one summary entry; new `fail_count` = warning count, checked against
+  `len(doc.GetWarnings())`; `findings_available = 0`.
+- **G-03**: v1.3 `fails` is empty; new `fail_count` = non-linked `ImportInstance` count, checked
+  against a direct collector count.
 
 **7.3 Second fixture (small scratch model)** created by the test via MCP tools into a temp `.rvt`
 (never the shipped sample in Program Files). Must cover:
@@ -302,8 +335,15 @@ formatter output parsed by the adapter from a captured real response.
 
 **7.7 Skill:** SKILL.md uses the tools; regenerate the Snowdon Excel; key cells match the old
 workbook (overall, grade, per-rule pass rates) **and** the Failing Elements sheet row count equals
-Σ `fail_count` over rules with element/finding lists (complete, uncapped). A second run with a
+the response's `total_findings` = Σ `findings_available` (complete, uncapped; G-01 contributes 0). A second run with a
 small cap must produce the "SAMPLE — capped" title and correct omitted counts.
+
+**7.8 Payload & timeout gate (release-1 blocker).** On Snowdon (17k elements), uncapped, all three
+stages: record route runtime, response bytes, and Σ `findings_available`. Release 1 ships only if
+runtime ≤ ½ `HEALTH_TIMEOUT` and findings ≤ ½ `MAX_TOTAL_FINDINGS`; otherwise adjust the limits
+(documented) or implement pagination first. Also test the over-limit path by temporarily setting
+`MAX_TOTAL_FINDINGS` to 10: expect `complete_export: false`, `error_code: export_too_large`, and the
+builder refusing to produce an unlabelled workbook.
 
 ## 8. Risks
 | Risk | Mitigation |
@@ -340,3 +380,11 @@ The author retains the right to sell it.
 - AutoConst files carry a header: `# AutoConst Source Available License — see LICENSE-AUTOCONST`.
 - Repo root: `LICENSE` (MIT, upstream, unchanged), `LICENSE-AUTOCONST` (new), `NOTICE` documents the
   split and which paths are which. Health engine/rules/routes/tools files are AutoConst files.
+- **Published metadata (done, commit after rev 3):**
+  - `pyproject.toml`: `license = "MIT AND LicenseRef-AutoConst-Source-Available"`,
+    `license-files = ["LICENSE", "LICENSE-AUTOCONST", "NOTICE"]` (PEP 639 SPDX expression; custom
+    license via `LicenseRef-`). The project declares **no `[build-system]`** (it runs via `uv run`,
+    not built/published as a wheel); `uv lock` accepts the metadata. If a build backend is added
+    later, verify it supports PEP 639 license expressions (e.g. hatchling ≥ 1.27, setuptools ≥ 77).
+  - `README.md` License section now describes the split and links both licenses + NOTICE.
+  - `extension.json` (pyRevit) has no license field — unchanged.

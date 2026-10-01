@@ -3,8 +3,9 @@ name = "autoconst-revit-mcp"
 version = "0.2.0"
 description = "AutoConst Revit MCP - AI tools for Revit BIM, QS and estimating workflows, via pyRevit Routes"
 readme = "README.md"
-license = "MIT"
-authors = [{ name = "Talal Ahmed" }]
+license = "MIT AND LicenseRef-AutoConst-Source-Available"
+license-files = ["LICENSE", "LICENSE-AUTOCONST", "NOTICE"]
+authors = [{ name = "Hamza Jabbar" }, { name = "Talal Ahmed" }, { name = "Juan Rodriguez" }]
 requires-python = ">=3.11"
 dependencies = [
     "httpx>=0.27",
