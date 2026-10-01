@@ -172,7 +172,7 @@ def register_documentation_routes(api):
 
             for tb in title_blocks:
                 try:
-                    family_name = tb.FamilyName if hasattr(tb, \'FamilyName\') else ""
+                    family_name = tb.FamilyName if hasattr(tb, "FamilyName") else ""
                     param = tb.get_Parameter(DB.BuiltInParameter.ALL_MODEL_TYPE_NAME)
                     type_name = param.AsString() if param else get_element_name(tb)
                     key = "{}: {}".format(family_name, type_name)

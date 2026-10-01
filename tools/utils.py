@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 """Utility functions for MCP tools"""
 
+import json
+
+
+def _to_json(payload):
+    """Serialize a response payload so the AI client receives the full data."""
+    return json.dumps(payload, indent=1, ensure_ascii=False, default=str)
+
 
 def format_response(response):
     """Helper function to format API responses consistently for MCP tools.
@@ -17,20 +24,14 @@ def format_response(response):
         health = response.get("health", "").lower()
         
         # Success conditions: status="success" OR status="active" with health="healthy"
-        is_success = (status == "success" or 
-                     (status == "active" and health == "healthy") or
-                     (status == "active" and "revit_available" in response and response["revit_available"]))
-        
+        # A response is an error only if it says so; data-only responses
+        # (no "status" key) are successes
+        is_success = "error" not in response and status not in ("error", "failed")
+
         if is_success:
-            # For successful responses, return the most relevant data
+            # For successful responses, return the full data, not just the summary message
             if "output" in response:  # Code execution responses
                 return response["output"]
-            elif "message" in response:
-                return response["message"]
-            elif "result" in response:
-                return str(response["result"])
-            elif "data" in response:
-                return str(response["data"])
             elif status == "active":  # Status check responses
                 # Format status response nicely
                 status_parts = ["=== REVIT STATUS ==="]
@@ -54,7 +55,7 @@ def format_response(response):
                 
                 return "\n".join(status_parts)
             else:
-                return "Operation completed successfully"
+                return _to_json(response)
         else:
             # Error case - provide verbose debugging information
             error_msg = response.get("error", "Unknown error occurred")
