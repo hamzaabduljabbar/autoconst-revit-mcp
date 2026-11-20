@@ -44,15 +44,15 @@
   },
   "bim_health_audit": {
     "properties": {
-      "stage": {
-        "default": "design",
-        "title": "Stage",
-        "type": "string"
-      },
       "max_failing_ids": {
         "default": 200,
         "title": "Max Failing Ids",
         "type": "integer"
+      },
+      "stage": {
+        "default": "design",
+        "title": "Stage",
+        "type": "string"
       }
     },
     "title": "bim_health_auditArguments",
@@ -880,6 +880,11 @@
     "properties": {
       "view_name": {
         "title": "View Name",
+        "type": "string"
+      },
+      "view_type": {
+        "default": null,
+        "title": "View Type",
         "type": "string"
       }
     },

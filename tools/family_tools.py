@@ -63,8 +63,8 @@ def register_family_tools(mcp, revit_get, revit_post):
         if contains:
             query["contains"] = contains
         if limit != 50:
-            query["limit"] = str(limit)
-        return format_response(await revit_get("/list_families/", ctx, params=query))
+            query["limit"] = int(limit)
+        return format_response(await revit_post("/list_families/", query, ctx))
 
     @mcp.tool()
     async def list_family_categories(ctx: Context = None) -> str:

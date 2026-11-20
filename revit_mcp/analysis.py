@@ -393,7 +393,7 @@ def register_analysis_routes(api):
                 })
 
             total = len(materials)
-            message = "Material quantities from {} material{} across all categories".format(
+            message = ("Material quantities from {} material{} across " + (", ".join(categories_filter) if categories_filter else "walls, floors, roofs, ceilings, structural columns and framing")).format(
                 total,
                 "s" if total != 1 else ""
             )

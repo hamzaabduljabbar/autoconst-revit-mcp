@@ -4,7 +4,7 @@ Color management functionality for Revit elements
 Provides tools for color splashing elements based on parameter values
 """
 
-from utils import get_element_id_value, suppress_warnings
+from utils import get_element_id_value, get_element_name, suppress_warnings
 from pyrevit import routes, DB
 import json
 import logging
@@ -255,8 +255,8 @@ def get_parameter_value_improved(element, parameter_name):
                     if id_val and id_val != DB.ElementId.InvalidElementId:
                         try:
                             elem = element.Document.GetElement(id_val)
-                            if elem and hasattr(elem, "Name"):
-                                return elem.Name or "None"
+                            if elem:
+                                return get_element_name(elem) or "None"
                         except:
                             pass
                     return "None"
@@ -299,8 +299,8 @@ def get_parameter_value_improved(element, parameter_name):
                             if id_val and id_val != DB.ElementId.InvalidElementId:
                                 try:
                                     elem = element.Document.GetElement(id_val)
-                                    if elem and hasattr(elem, "Name"):
-                                        return elem.Name or "None"
+                                    if elem:
+                                        return get_element_name(elem) or "None"
                                 except:
                                     pass
                         elif param.StorageType == DB.StorageType.Integer:
@@ -465,8 +465,12 @@ def get_parameter_value_for_sorting(element, parameter_name):
     """
     try:
         # Try instance parameters first
-        for param in element.Parameters:
-            if param.Definition.Name == parameter_name:
+        found = element.LookupParameter(parameter_name)
+        candidates = [found] if found is not None else [
+            p for p in element.Parameters if p.Definition.Name == parameter_name
+        ]
+        for param in candidates:
+            if True:
                 if not param.HasValue:
                     return ("None", "None")
 
@@ -511,8 +515,8 @@ def get_parameter_value_for_sorting(element, parameter_name):
                     if id_val and id_val != DB.ElementId.InvalidElementId:
                         try:
                             elem = element.Document.GetElement(id_val)
-                            if elem and hasattr(elem, "Name"):
-                                elem_name = elem.Name or "None"
+                            if elem:
+                                elem_name = get_element_name(elem) or "None"
                                 return (elem_name, elem_name)
                         except:
                             pass
@@ -575,8 +579,8 @@ def get_parameter_value_for_sorting(element, parameter_name):
                             if id_val and id_val != DB.ElementId.InvalidElementId:
                                 try:
                                     elem = element.Document.GetElement(id_val)
-                                    if elem and hasattr(elem, "Name"):
-                                        elem_name = elem.Name or "None"
+                                    if elem:
+                                        elem_name = get_element_name(elem) or "None"
                                         return (elem_name, elem_name)
                                 except:
                                     pass
@@ -628,7 +632,7 @@ def color_elements_by_parameter(
 
         # Get elements from the category
         collector = (
-            DB.FilteredElementCollector(doc)
+            DB.FilteredElementCollector(doc, doc.ActiveView.Id)
             .OfCategoryId(target_category.Id)
             .WhereElementIsNotElementType()
         )
@@ -831,27 +835,6 @@ def color_elements_by_parameter(
                         active_view.SetElementOverrides(element.Id, override_settings)
                         elements_colored += 1
 
-                        # Optionally apply to other views of same type
-                        try:
-                            if hasattr(active_view, "ViewType"):
-                                view_type = active_view.ViewType
-                                other_views = (
-                                    DB.FilteredElementCollector(doc)
-                                    .OfClass(DB.View)
-                                    .WhereElementIsNotElementType()
-                                )
-                                for view in other_views:
-                                    if (
-                                        not view.IsTemplate
-                                        and hasattr(view, "ViewType")
-                                        and view.ViewType == view_type
-                                        and view.Id != active_view.Id
-                                    ):
-                                        view.SetElementOverrides(
-                                            element.Id, override_settings
-                                        )
-                        except Exception:
-                            pass  # Don't fail if we can't apply to other views
 
                     except Exception as e:
                         logger.warning(
@@ -923,7 +906,7 @@ def clear_element_colors(doc, category_name):
 
         # Get elements from the category
         collector = (
-            DB.FilteredElementCollector(doc)
+            DB.FilteredElementCollector(doc, doc.ActiveView.Id)
             .OfCategoryId(target_category.Id)
             .WhereElementIsNotElementType()
         )
@@ -951,25 +934,6 @@ def clear_element_colors(doc, category_name):
                     active_view.SetElementOverrides(element.Id, empty_override)
                     elements_cleared += 1
 
-                    # Optionally clear from other views of same type
-                    try:
-                        if hasattr(active_view, "ViewType"):
-                            view_type = active_view.ViewType
-                            other_views = (
-                                DB.FilteredElementCollector(doc)
-                                .OfClass(DB.View)
-                                .WhereElementIsNotElementType()
-                            )
-                            for view in other_views:
-                                if (
-                                    not view.IsTemplate
-                                    and hasattr(view, "ViewType")
-                                    and view.ViewType == view_type
-                                    and view.Id != active_view.Id
-                                ):
-                                    view.SetElementOverrides(element.Id, empty_override)
-                    except Exception:
-                        pass  # Don't fail if we can't clear from other views
 
                 except Exception as e:
                     logger.warning(

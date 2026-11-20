@@ -32,8 +32,9 @@ MCP_HOST = os.environ.get("MCP_HOST", "127.0.0.1")
 MCP_PORT = int(os.environ.get("MCP_PORT", "8000"))
 
 API_ROOT = "http://{}:{}/revit_mcp".format(REVIT_HOST, REVIT_PORT)
-DEFAULT_TIMEOUT = 30.0
-IMAGE_TIMEOUT = 60.0
+DEFAULT_TIMEOUT = 120.0
+IMAGE_TIMEOUT = 120.0
+DRAIN_TIMEOUT = 300.0
 
 UNREACHABLE_HINT = (
     "Error: cannot reach Revit at {root}.\n"
@@ -68,22 +69,57 @@ class RevitClient(object):
     def __init__(self, root: str = API_ROOT):
         self.root = root
         self._http: Optional[httpx.AsyncClient] = None
+        # Set after a timeout: Revit keeps working on the abandoned request and
+        # pyRevit Routes can hand its late answer to the next request. Before
+        # the next call we drain until /current_view_info/ (which, unlike
+        # /status/, runs on Revit's UI thread and so queues behind the stuck
+        # request) answers as itself.
+        self._dirty = False
 
     def _session(self) -> httpx.AsyncClient:
         if self._http is None or self._http.is_closed:
             self._http = httpx.AsyncClient(
                 base_url=self.root,
-                limits=httpx.Limits(max_connections=20, max_keepalive_connections=10),
+                limits=httpx.Limits(max_connections=20, max_keepalive_connections=0),
+                headers={"Connection": "close"},
             )
         return self._http
 
+    async def _drain(self) -> Optional[str]:
+        """Wait until Revit has finished the abandoned request(s)."""
+        deadline = DRAIN_TIMEOUT
+        while deadline > 0:
+            try:
+                r = await self._session().get("/current_view_info/", timeout=deadline)
+            except httpx.TimeoutException:
+                break
+            except httpx.HTTPError:
+                return UNREACHABLE_HINT.format(root=self.root)
+            try:
+                body = r.json()
+            except ValueError:
+                body = None
+            if isinstance(body, dict) and ("view_info" in body or body.get("error")):
+                self._dirty = False
+                return None
+            deadline -= 5  # a stale answer was consumed; ask again
+        return ("Error: Revit is still busy with an earlier request that timed out. "
+                "Wait for Revit to finish, then retry.")
+
     async def _send(self, method: str, path: str, timeout: float, **kwargs) -> Union[httpx.Response, str]:
         try:
+            if self._dirty:
+                busy = await self._drain()
+                if busy:
+                    return busy
             return await self._session().request(method, path, timeout=timeout, **kwargs)
         except (httpx.ConnectError, httpx.ConnectTimeout):
             return UNREACHABLE_HINT.format(root=self.root)
         except httpx.TimeoutException:
-            return TIMEOUT_HINT.format(path=path, secs=timeout)
+            self._dirty = True
+            return TIMEOUT_HINT.format(path=path, secs=timeout) + (
+                "\nThe request may still complete in Revit; check before retrying "
+                "any edit.")
         except httpx.HTTPError as exc:
             return "Error: request to {} failed: {}".format(path, exc)
 

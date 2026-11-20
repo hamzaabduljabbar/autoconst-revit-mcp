@@ -44,8 +44,8 @@ To verify: open a browser and go to `http://localhost:48884/` — you should see
 ### 1. Get the code
 
 ```bash
-git clone https://github.com/Demolinator/revit-mcp-server.git
-cd revit-mcp-server
+git clone https://github.com/hamzaabduljabbar/autoconst-revit-mcp.git
+cd autoconst-revit-mcp
 uv sync
 ```
 
@@ -53,12 +53,12 @@ uv sync
 
 `startup.py` and `revit_mcp/` run **inside Revit**, so pyRevit has to load this folder as an extension.
 
-> Don't install "MCP Server for Revit Python" from the pyRevit Extensions manager. That entry installs the original upstream project, which lacks most of the 48 routes this server calls.
+> Don't install "MCP Server for Revit Python" from the pyRevit Extensions manager. That entry installs the original upstream project, which lacks most of the 51 routes this server calls.
 
 1. Pick a folder for your pyRevit extensions, e.g. `C:\pyRevitExtensions`.
 2. Link this repo into it under a name ending in `.extension` (a junction keeps it updated whenever you `git pull`):
    ```powershell
-   New-Item -ItemType Junction -Path C:\pyRevitExtensions\revit-mcp.extension -Target C:\path\to\revit-mcp-server
+   New-Item -ItemType Junction -Path C:\pyRevitExtensions\revit-mcp.extension -Target C:\path\to\autoconst-revit-mcp
    ```
    (Copying the folder there with that name works too; you'll just need to copy it again after updates.)
 3. In Revit: **pyRevit tab → Settings → Custom Extension Directories** → add `C:\pyRevitExtensions`.
@@ -78,13 +78,13 @@ Most desktop clients start the server themselves over stdio. Add this to the cli
   "mcpServers": {
     "revit": {
       "command": "uv",
-      "args": ["run", "--directory", "C:\path\to\revit-mcp-server", "main.py"]
+      "args": ["run", "--directory", "C:\path\to\autoconst-revit-mcp", "main.py"]
     }
   }
 }
 ```
 
-For Claude Code: `claude mcp add revit -- uv run --directory C:\path\to\revit-mcp-server main.py`
+For Claude Code: `claude mcp add revit -- uv run --directory C:\path\to\autoconst-revit-mcp main.py`
 
 Clients that connect over HTTP instead (some Cursor/Windsurf setups, remote clients) need the server started separately:
 
@@ -248,8 +248,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md#adding-a-new-tool) for a complete worked e
 
 Contributions are welcome — from typo fixes to new tools! Read **[CONTRIBUTING.md](CONTRIBUTING.md)** for the dev setup, the edit–reload loop, a step-by-step "add a tool" walkthrough, and coding conventions.
 
-- Looking for a place to start? See issues labeled [`good first issue`](https://github.com/Demolinator/revit-mcp-server/labels/good%20first%20issue).
-- Found a bug or have an idea? [Open an issue](https://github.com/Demolinator/revit-mcp-server/issues/new/choose).
+- Looking for a place to start? See issues labeled [`good first issue`](https://github.com/hamzaabduljabbar/autoconst-revit-mcp/labels/good%20first%20issue).
+- Found a bug or have an idea? [Open an issue](https://github.com/hamzaabduljabbar/autoconst-revit-mcp/issues/new/choose).
 - Please follow our [Code of Conduct](CODE_OF_CONDUCT.md), and report security issues privately per [SECURITY.md](SECURITY.md).
 
 ## Author

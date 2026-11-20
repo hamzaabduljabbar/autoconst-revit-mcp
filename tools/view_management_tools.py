@@ -47,6 +47,7 @@ def register_view_management_tools(mcp, revit_get, revit_post, revit_image=None)
     @mcp.tool()
     async def set_active_view(
         view_name: str,
+        view_type: str = None,
         ctx: Context = None,
     ) -> str:
         """Switch the active view in Revit to the specified view.
@@ -56,8 +57,12 @@ def register_view_management_tools(mcp, revit_get, revit_post, revit_image=None)
 
         Args:
             view_name: Name of the view to activate
+            view_type: Optional, when names repeat: "FloorPlan", "CeilingPlan",
+                "ThreeD", "Section", "Elevation". Floor plans win by default.
             ctx: MCP context for logging
         """
         data = {"view_name": view_name}
+        if view_type:
+            data["view_type"] = view_type
         response = await revit_post("/set_active_view/", data, ctx)
         return format_response(response)

@@ -440,7 +440,7 @@ def register_placement_routes(api):
             logger.error("load_family failed: {}".format(str(e)))
             return routes.make_response(data={"error": str(e)}, status=500)
 
-    @api.route("/list_families/", methods=["GET"])
+    @api.route("/list_families/", methods=["GET", "POST"])
     def list_families(doc, request):
         """
         Simplified: Get a flat list of up to 50 family names and their types in the current Revit model.
@@ -453,16 +453,33 @@ def register_placement_routes(api):
                     data={"error": "No active Revit document"}, status=503
                 )
 
+            # pyRevit drops URL query strings, so filters arrive as a POST body.
+            params = {}
+            raw = getattr(request, "data", None)
+            if raw:
+                try:
+                    params = json.loads(raw) if isinstance(raw, str) else dict(raw)
+                except Exception:
+                    params = {}
+            try:
+                limit = max(1, int(params.get("limit", 50)))
+            except (TypeError, ValueError):
+                limit = 50
+            contains = (params.get("contains") or "").lower()
             symbols = (
                 DB.FilteredElementCollector(doc).OfClass(DB.FamilySymbol).ToElements()
             )
             families = []
             for symbol in symbols:
-                if len(families) >= 50:
+                if len(families) >= limit:
                     break
                 try:
                     family_name = get_element_name(symbol.Family)
                     type_name = get_element_name(symbol)
+                    if contains and contains not in (
+                        "{} {}".format(family_name, type_name).lower()
+                    ):
+                        continue
                     category = symbol.Category.Name if symbol.Category else "Unknown"
                     is_active = symbol.IsActive
                     families.append(

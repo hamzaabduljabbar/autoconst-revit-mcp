@@ -330,15 +330,30 @@ def register_view_management_routes(api):
 
             target_view = None
             available_views = []
+            matches = []
             for v in views:
                 try:
                     vname = get_element_name(v)
                     if not v.IsTemplate:
                         available_views.append(vname)
                     if vname == view_name and not v.IsTemplate:
-                        target_view = v
+                        matches.append(v)
                 except Exception:
                     continue
+            # Several views can share a name (e.g. floor plan + ceiling plan "L2").
+            # Honour an optional view_type, else prefer floor plan, 3D, then others.
+            wanted_type = (data.get("view_type") or "").lower()
+            preference = ["FloorPlan", "ThreeD", "Section", "Elevation", "CeilingPlan"]
+
+            def _rank(v):
+                vt = str(v.ViewType)
+                if wanted_type and vt.lower() == wanted_type:
+                    return -1
+                return preference.index(vt) if vt in preference else len(preference)
+
+            if matches:
+                matches.sort(key=_rank)
+                target_view = matches[0]
 
             if not target_view:
                 return routes.make_response(
