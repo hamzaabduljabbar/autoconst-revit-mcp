@@ -12,8 +12,8 @@ def register_view_management_tools(mcp, revit_get, revit_post, revit_image=None)
     async def create_view(
         view_type: str,
         name: str,
-        level_name: str = None,
-        section_box: dict = None,
+        level_name: str | None = None,
+        section_box: dict | None = None,
         ctx: Context = None,
     ) -> str:
         """Create a new view in the Revit model.
@@ -47,7 +47,7 @@ def register_view_management_tools(mcp, revit_get, revit_post, revit_image=None)
     @mcp.tool()
     async def set_active_view(
         view_name: str,
-        view_type: str = None,
+        view_type: str | None = None,
         ctx: Context = None,
     ) -> str:
         """Switch the active view in Revit to the specified view.

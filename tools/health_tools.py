@@ -63,7 +63,7 @@ def register_health_tools(mcp, revit_get, revit_post, revit_image=None):
     @mcp.tool()
     async def bim_health_fix(
         apply: bool = False,
-        plan_id: str = None,
+        plan_id: str | None = None,
         ctx: Context = None,
     ) -> str:
         """Fill blank Uniformat "Assembly Code" values on element types (two steps).

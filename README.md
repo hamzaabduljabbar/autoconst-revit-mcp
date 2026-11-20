@@ -252,6 +252,20 @@ Contributions are welcome — from typo fixes to new tools! Read **[CONTRIBUTING
 - Found a bug or have an idea? [Open an issue](https://github.com/hamzaabduljabbar/autoconst-revit-mcp/issues/new/choose).
 - Please follow our [Code of Conduct](CODE_OF_CONDUCT.md), and report security issues privately per [SECURITY.md](SECURITY.md).
 
+## Contributors
+
+Thanks to everyone who has built, fixed, tested, and reported issues in this repository.
+See **[CONTRIBUTORS.md](CONTRIBUTORS.md)** for who did what.
+
+<a href="https://github.com/Demolinator"><img src="https://github.com/Demolinator.png?size=64" width="64" height="64" alt="Talal Ahmed" title="Talal Ahmed"></a>
+<a href="https://github.com/jalv92"><img src="https://github.com/jalv92.png?size=64" width="64" height="64" alt="jalv92" title="jalv92"></a>
+<a href="https://github.com/vishalhabib99"><img src="https://github.com/vishalhabib99.png?size=64" width="64" height="64" alt="Vishal Habib" title="Vishal Habib"></a>
+<a href="https://github.com/HarshRajSinghania"><img src="https://github.com/HarshRajSinghania.png?size=64" width="64" height="64" alt="Harsh Raj Singhania" title="Harsh Raj Singhania"></a>
+<a href="https://github.com/bfs2021"><img src="https://github.com/bfs2021.png?size=64" width="64" height="64" alt="bfs2021" title="bfs2021"></a>
+<a href="https://github.com/Mr45401"><img src="https://github.com/Mr45401.png?size=64" width="64" height="64" alt="Muhammad Yaseen" title="Muhammad Yaseen"></a>
+
+Built on [mcp-server-for-revit-python](https://github.com/mcp-servers-for-revit/mcp-server-for-revit-python) by Juan Rodriguez and its contributors.
+
 ## Author
 
 **Talal Ahmed**

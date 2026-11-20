@@ -38,6 +38,24 @@ def test_tool_contract_is_unchanged():
         assert actual[name] == expected[name], name
 
 
+def test_null_defaults_are_allowed_values():
+    """An argument that advertises "default": null must accept null.
+
+    Clients that fill optional fields from the schema send that default back, so
+    write `x: str | None = None`, not `x: str = None`.
+    """
+    contract = json.load(open(CONTRACT, encoding="utf-8"))
+    offenders = [
+        "{}.{}".format(tool, name)
+        for tool, schema in contract.items()
+        for name, prop in schema.get("properties", {}).items()
+        if "default" in prop
+        and prop["default"] is None
+        and not any(option.get("type") == "null" for option in prop.get("anyOf", []))
+    ]
+    assert offenders == []
+
+
 def test_every_tool_has_a_description():
     for tool in run(main.mcp.list_tools()):
         assert tool.description and len(tool.description.strip()) > 20, tool.name
@@ -175,3 +193,24 @@ def test_health_tools_always_return_one_json_document():
     err = json.loads(_as_json(main.TIMEOUT_HINT.format(path="/health_fix/", secs=180)))
     assert err["status"] == "error" and err["error_code"] == "timeout"
     assert err["transaction"]["status"] == "unknown"
+
+
+def test_get_revit_view_encodes_hash_in_view_name():
+    """View names containing '#' must be percent-encoded so the fragment is not stripped."""
+    from mcp.server.fastmcp import FastMCP
+    from tools.view_tools import register_view_tools
+
+    captured = {}
+
+    async def fake_image(path, ctx=None):
+        captured["path"] = path
+        return "ok"
+
+    mcp = FastMCP("test")
+    register_view_tools(mcp, lambda p, c=None: None, lambda p, d, c=None: None, fake_image)
+
+    result = run(mcp.call_tool("get_revit_view", {"view_name": "Plan #2"}))
+    assert captured["path"] == "/get_view/Plan%20%232"
+    # Also confirm normal names still work
+    run(mcp.call_tool("get_revit_view", {"view_name": "Level 1"}))
+    assert captured["path"] == "/get_view/Level%201"
